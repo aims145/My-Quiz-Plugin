@@ -11,6 +11,10 @@
 define('MYQUIZ_DIR', plugin_dir_path(__FILE__));
 define('MYQUIZ_URL', plugin_dir_url(__FILE__));
 
+function theme_scripts() {
+  wp_enqueue_script('jquery');
+}
+add_action('wp_enqueue_scripts', 'theme_scripts');
 function add_css_to_head(){
     $cssurl = MYQUIZ_URL.'assets/css/myquiz.css';
     print "<link rel='stylesheet' href='".$cssurl."'>";
@@ -71,29 +75,32 @@ function myquiz_addquiz(){
             <label>Yes  </label>
             <input id="radiobuttonforno" type="radio" name="multichoiceno" value="no" checked="checked" onclick="multichoiceno();">
             <label>No   </label>
+            <br>
+            <div>
+            <label id="allowedmultichoicelevel" class="allowedmultichoicelevel">Allowed Selectable Options</label>
+            <select name="allowedmultichoice" class="allowedmultichoice" id="allowedmultichoice">
+                <option value="1" selected>1</option>
+                <option value="2">2</option>
+                <option value="3">3</option>
+            </select>
+            </div>
         </td>
     </tr>
-    
-    <tr class="enablemultichoice" id="enablemultichoice">
-        <td></td>
-        <td>
-        </td>
-    </tr>
-    
-    
+  
     <tr>
-        <td>Option1</td>
+        <td class="options">Option1</td>
         <td><input id="option1" type="text" name="option1"></td>
     </tr>
     <tr>
-        <td>Option2</td>
+        <td class="options">Option2</td>
         <td><input id="option2" type="text" name="option2"></td>
     </tr>
-    <tr>
+    <tr id="addoptionbutton">
         <td></td>
-        <td><input id="option2" class="button button-primary" type="button" value="Add More Option" ></td>
+        <td><input class="button button-primary" type="button" value="Add More Option" onclick="addoptions(this);" ></td>
     </tr>
 </table>
+
 </div>    
 </div>
 <?php
