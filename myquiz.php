@@ -85,15 +85,28 @@ function myquiz_addquiz(){
             </select>
             </div>
         </td>
+        <td>Select Correct Answer</td>
     </tr>
   
     <tr>
         <td class="options">Option1</td>
         <td><input id="option1" type="text" name="option1"></td>
+        <td><input id="correctanswer" class="correctanswer" type="checkbox" name="correntansweroption1" value="1" onclick="checkmultichoice();" ></td>
     </tr>
     <tr>
         <td class="options">Option2</td>
         <td><input id="option2" type="text" name="option2"></td>
+        <td><input id="correctanswer" class="correctanswer"  type="checkbox" name="correntansweroption1" value="1" onclick="checkmultichoice();" ></td>
+    </tr>
+    <tr>
+        <td class="options">Option3</td>
+        <td><input id="option3" type="text" name="option3"></td>
+        <td><input id="correctanswer" class="correctanswer" type="checkbox" name="correntansweroption1" value="1" onclick="checkmultichoice();" ></td>
+    </tr>
+    <tr>
+        <td class="options">Option4</td>
+        <td><input id="option4" type="text" name="option4"></td>
+        <td><input id="correctanswer" class="correctanswer" type="checkbox" name="correntansweroption1" value="1" onclick="checkmultichoice();" ></td>
     </tr>
     <tr id="addoptionbutton">
         <td></td>

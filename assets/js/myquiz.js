@@ -19,26 +19,49 @@ function multichoiceno(){
     console.log("No");
 }
 
+function checkmultichoice(){
+    var multichoicestatu = document.getElementById("radiobuttonforno").checked;
+    var countoption = document.getElementById("correctanswer");
+    var countchecked = 0;
+    var i;
+//    for( i=0; i<countoption.length; i++ ){
+//        if( countoption.checked === true ){
+//            countchecked += 1;
+//        }
+//    }
+//    if (countchecked > 1){
+//        return false;
+//    }
+    console.log(countoption);
+}
+
+
 function addoptions(){
     var count = document.getElementsByClassName("options").length;
-    var newtr = document.createElement("tr");
-    var newtd1 = document.createElement("td");
-    var newtd2 = document.createElement("td");
-    var node1 = document.createTextNode("Option"+(count+1));
-    var node2 = document.createTextNode("<input id='option"+(count + 1)+"' type='text' name='option"+(count + 1)+"'>");
-    
-    newtd1.appendChild(node1);
-    newtd2.appendChild(node2);
-    newtr.appendChild(newtd1);
-    newtr.appendChild(newtd2);
-    
+    var x = document.getElementsByTagName("tr");
     var parenttable = document.getElementById("quiztable");
     var elementafter = document.getElementById("addoptionbutton");
     
-    //currentele.insertBefore(newtr, currentele.);
+    var i;
+    var indexoftr;
+    for (i = 0; i < x.length; i++) {
+    if( x[i] === elementafter ){
+        indexoftr = i;
+    }
+    }
     
-    console.log(parenttable);
-    //var parent = element.children(element);
-    //console.log(parent);
-       
+    if(count < 6 ){
+        var row = parenttable.insertRow(indexoftr);
+        var cell1 = row.insertCell(0);
+        var cell2 = row.insertCell(1);
+        var cell3 = row.insertCell(2);
+        cell1.setAttribute("class", "options");
+        cell1.innerHTML = "Option"+(count+1);
+        cell2.innerHTML = "<input id='option"+(count + 1)+"' type='text' name='option"+(count + 1)+"'>";
+        cell3.innerHTML = "<td><input id='correctanswer' class='correctanswer' type='checkbox' name='correntansweroption"+(count + 1)+"' value='1' onclick='checkmultichoice();' ></td>";
+    }
+    else{
+        return false;
+    }
+
 }
