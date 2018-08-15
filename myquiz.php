@@ -71,9 +71,9 @@ function myquiz_addquiz(){
         <td><label>Is Multiple Choice ?</label></td>
         
         <td>
-            <input id="radiobuttonforyes" type="radio" name="multichoiceyes" value="yes" onclick="multichoiceyes();" >
+            <input id="radiobuttonforyes" type="radio" name="multichoiceyes" onclick="multichoiceyes(this);" >
             <label>Yes  </label>
-            <input id="radiobuttonforno" type="radio" name="multichoiceno" value="no" checked="checked" onclick="multichoiceno();">
+            <input id="radiobuttonforno" type="radio" name="multichoiceno" value="1" checked="checked" onclick="multichoiceno(this);">
             <label>No   </label>
             <br>
             <div>
@@ -82,6 +82,7 @@ function myquiz_addquiz(){
                 <option value="1" selected>1</option>
                 <option value="2">2</option>
                 <option value="3">3</option>
+                <option value="4">4</option>
             </select>
             </div>
         </td>
@@ -91,22 +92,22 @@ function myquiz_addquiz(){
     <tr>
         <td class="options">Option1</td>
         <td><input id="option1" type="text" name="option1"></td>
-        <td><input id="correctanswer" class="correctanswer" type="checkbox" name="correntansweroption1" value="1" onclick="checkmultichoice();" ></td>
+        <td><input id="correctanswer" class="correctanswer" type="radio" name="correntansweroption1" onclick="checkmultichoice(this);" ></td>
     </tr>
     <tr>
         <td class="options">Option2</td>
         <td><input id="option2" type="text" name="option2"></td>
-        <td><input id="correctanswer" class="correctanswer"  type="checkbox" name="correntansweroption1" value="1" onclick="checkmultichoice();" ></td>
+        <td><input id="correctanswer" class="correctanswer"  type="radio" name="correntansweroption2" onclick="checkmultichoice(this);" ></td>
     </tr>
     <tr>
         <td class="options">Option3</td>
         <td><input id="option3" type="text" name="option3"></td>
-        <td><input id="correctanswer" class="correctanswer" type="checkbox" name="correntansweroption1" value="1" onclick="checkmultichoice();" ></td>
+        <td><input id="correctanswer" class="correctanswer" type="radio" name="correntansweroption3" onclick="checkmultichoice(this);" ></td>
     </tr>
     <tr>
         <td class="options">Option4</td>
         <td><input id="option4" type="text" name="option4"></td>
-        <td><input id="correctanswer" class="correctanswer" type="checkbox" name="correntansweroption1" value="1" onclick="checkmultichoice();" ></td>
+        <td><input id="correctanswer" class="correctanswer" type="radio" name="correntansweroption4"  onclick="checkmultichoice(this);" ></td>
     </tr>
     <tr id="addoptionbutton">
         <td></td>
