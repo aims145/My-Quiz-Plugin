@@ -6,6 +6,7 @@
 
 
 function multichoiceyes(element){
+
     var radiobuttonno = document.getElementById('radiobuttonforno');
         radiobuttonno.checked = false;
     document.getElementById('allowedmultichoice').style.display = "block";
@@ -20,6 +21,7 @@ function multichoiceyes(element){
 }
 
 function multichoiceno(element){
+    
     var radiobuttonyes = document.getElementById('radiobuttonforyes');
         radiobuttonyes.checked = false;
     document.getElementById('allowedmultichoice').style.display = "none";
@@ -31,7 +33,6 @@ function multichoiceno(element){
     }
     element.setAttribute("value", "1");
     radiobuttonyes.removeAttribute("value");
-    
 }
 
 function checkmultichoice(element){
@@ -104,4 +105,13 @@ function addoptions(){
         return false;
     }
 
+}
+
+function addmoreoption(){
+    var alloptions = document.getElementsByClassName("alloptions");
+    var numberofoptionsnow = alloptions.length;
+    var newoption = alloptions[0].cloneNode(true);
+    var allchilds = newoption.children;
+        allchilds[0].innerHTML = "Option "+(numberofoptionsnow+1)
+    console.log(allchilds[0].innerHTML);
 }

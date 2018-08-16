@@ -45,3 +45,10 @@ function add_js_to_footer(){
     print "<script type='text/javascript' src='".$jsurl."'></script>";
 }
 add_action('wp_footer', 'add_js_to_footer');
+
+
+ <select name="allowedmultichoice" class="allowedmultichoice" >
+                <option value="1" selected>1</option>
+                <option value="2">2</option>
+                <option value="3">3</option>
+            </select>

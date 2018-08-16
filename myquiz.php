@@ -10,20 +10,26 @@
       */
 define('MYQUIZ_DIR', plugin_dir_path(__FILE__));
 define('MYQUIZ_URL', plugin_dir_url(__FILE__));
+include(MYQUIZ_DIR.'testing.php');
 
 function theme_scripts() {
   wp_enqueue_script('jquery');
 }
 add_action('wp_enqueue_scripts', 'theme_scripts');
 function add_css_to_head(){
-    $cssurl = MYQUIZ_URL.'assets/css/myquiz.css';
-    print "<link rel='stylesheet' href='".$cssurl."'>";
+    $cssurl1 = MYQUIZ_URL.'assets/css/myquiz.css';
+    $cssurl2 = MYQUIZ_URL.'assets/css/bootstrap.min.css';
+    print "<link rel='stylesheet' href='".$cssurl1."'>";
+    print "<link rel='stylesheet' href='".$cssurl2."'>";
+    
 }
 add_action('admin_head', 'add_css_to_head');
 
 function add_js_to_footer(){
-    $jsurl = MYQUIZ_URL.'assets/js/myquiz.js';
-    print "<script type='text/javascript' src='".$jsurl."'></script>";
+    $jsurl1 = MYQUIZ_URL.'assets/js/myquiz.js';
+    $jsurl2 = MYQUIZ_URL.'assets/js/bootstrap.min.js';
+    print "<script type='text/javascript' src='".$jsurl1."'></script>";
+    print "<script type='text/javascript' src='".$jsurl2."'></script>";
 }
 add_action('admin_footer', 'add_js_to_footer');
 
@@ -40,10 +46,11 @@ add_shortcode("Example", myquiz_function);
 function myquiz_add_menu_option(){
     add_menu_page('My Quiz', 'My Quiz', 'manage_options', 'myquiz-admin-menu', 'myquiz_page', '', 200);
     add_submenu_page('myquiz-admin-menu', 'Add Quiz', 'Add Quiz', 'manage_options', 'myquiz_addquiz', 'myquiz_addquiz');
+    add_submenu_page('myquiz-admin-menu', 'Test Quiz', 'Test Quiz', 'manage_options', 'myquiz_testing', 'myquiz_testing');
+    
 }
 
 add_action('admin_menu', 'myquiz_add_menu_option');
-
 
 function myquiz_page(){
     ?>
@@ -62,7 +69,7 @@ function myquiz_addquiz(){
 <h1 class="wp-heading-inline">Add New Quiz</h1>
 <hr class="wp-header-end">
 <div class="myquizform">
-<table border="1" id="quiztable">
+<table id="quiztable">
     <tr>
         <td><label style="vertical-align: top;">Question :</label></td>
         <td><textarea id="" name="" style="resize: none;" cols="80" rows="3" placeholder="Enter your Question"></textarea><br></td>
@@ -113,8 +120,23 @@ function myquiz_addquiz(){
         <td></td>
         <td><input class="button button-primary" type="button" value="Add More Option" onclick="addoptions(this);" ></td>
     </tr>
+    <tr>
+   
+    </tr>
 </table>
-
+<h1 class="wp-heading-inline">Add Answer Description</h1>    
+ <?php  /*  
+        $editor_id = 'custom_editor_box';
+        //$uploaded_csv = get_post_meta( $post->ID, 'custom_editor_box', true);
+        $settings = array(
+            'editor_height' => 200, // In pixels, takes precedence and has no default value
+            'textarea_rows' => 10,  // Has no visible effect if editor_height is set, default is 20
+        );
+        $boxcontent = '';
+        wp_editor( $boxcontent, $editor_id, $settings );    */
+    ?>
+<hr class="wp-header-end">
+<button class="button button-primary" type="button" onclick="submit_form(); return false;">Submit Question</button>
 </div>    
 </div>
 <?php
