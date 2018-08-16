@@ -41,8 +41,8 @@ function myquiz_testing(){
     <div class="col-sm-3"></div>
     <div class="col-sm-3">Select Correct Option</div>
 </div>
-
-<div class="form-group row alloptions">
+<div class="alloptions" id="alloptions">
+<div class="form-group row">
     <div class="col-sm-2">Option 1</div>
     <div class="col-sm-6"><input class="form-control" type="text" name="option1" placeholder="Option 1"></div>
     <div class="col-sm-3">
@@ -53,7 +53,7 @@ function myquiz_testing(){
     </div>
 </div>    
     
-<div class="form-group row alloptions">
+<div class="form-group row">
     <div class="col-sm-2">Option 2</div>
     <div class="col-sm-6"><input class="form-control" type="text" name="option2" placeholder="Option 2"></div>
     <div class="col-sm-3">
@@ -64,7 +64,7 @@ function myquiz_testing(){
     </div>
 </div> 
     
-<div class="form-group row alloptions">
+<div class="form-group row">
     <div class="col-sm-2">Option 3</div>
     <div class="col-sm-6"><input class="form-control" type="text" name="option3" placeholder="Option 3"></div>
     <div class="col-sm-3">
@@ -76,7 +76,7 @@ function myquiz_testing(){
 </div> 
 
 
-<div class="form-group row alloptions">
+<div class="form-group row">
     <div class="col-sm-2">Option 4</div>
     <div class="col-sm-6"><input class="form-control" type="text" name="option4" placeholder="Option 4"></div>
     <div class="col-sm-3">
@@ -85,6 +85,7 @@ function myquiz_testing(){
             <span class="checkmark"></span>
         </label>
     </div>
+</div>
 </div>
     
 <div class="form-group row">

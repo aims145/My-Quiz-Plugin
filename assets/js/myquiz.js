@@ -108,10 +108,15 @@ function addoptions(){
 }
 
 function addmoreoption(){
-    var alloptions = document.getElementsByClassName("alloptions");
-    var numberofoptionsnow = alloptions.length;
-    var newoption = alloptions[0].cloneNode(true);
-    var allchilds = newoption.children;
-        allchilds[0].innerHTML = "Option "+(numberofoptionsnow+1)
-    console.log(allchilds[0].innerHTML);
+    var alloptions = document.getElementById("alloptions");
+    var numberofoptionsnow = alloptions.ch;
+//    var newoption = alloptions.childNodes[0].cloneNode(true);
+//    var allchilds = newoption.children;
+//    allchilds[0].innerHTML = "Option "+(numberofoptionsnow+1);
+//    allchilds[1].innerHTML = "<input class='form-control' type='text' name='option"+(numberofoptionsnow+1)+"' placeholder='Option "+(numberofoptionsnow+1)+"'>";
+//    allchilds[2].innerHTML = "<label class='radiolabel'><input class='form-control' type='radio' name='options'><span class='checkmark'></span></label>";
+//    alloptions.push(newoption);
+//    alloptions.splice(numberofoptionsnow, 0, newoption);
+    console.log(numberofoptionsnow);
+   //alloptions[-1].insertAdjacentHTML('afterend',newoption);
 }
