@@ -25,16 +25,29 @@ function myquiz_testing(){
     <label  class="col-sm-2 ">Is Multiple Choice ?</label>
     <div class="col-sm-1">
         <label class="radio-inline" for="radiobuttonforyes">
-            <input class="" type="radio" name="multichoice" id="radiobuttonforyes" value="yes" >YES
+            <input class="" type="radio" name="multichoice" id="radiobuttonforyes" value="yes" onclick="multichoiceyes();" >YES
         </label>
     </div>
     <div class="col-sm-2">
         <label class="radio-inline" for="radiobuttonforno">
-            <input class="" type="radio" name="multichoice" id="radiobuttonforno" value="no" checked>NO
+            <input class="" type="radio" name="multichoice" id="radiobuttonforno" value="no" onclick="multichoiceno();" checked>NO
         </label>
     </div>
 </div>       
 
+<div class="form-group row" id="allowedmultichoice">
+    <div class="col-sm-2">Allowed Selectable Options</div>
+    <div class="col-sm-6">
+        <select class="selectpicker" name="numbersofanswer" id="numbersofanswer" >
+            <option value="1" selected>1</option>
+            <option value="2">2</option>
+            <option value="3">3</option>
+            <option value="4">4</option>
+        </select>
+</div>
+    <div class="col-sm-3"></div>
+</div>    
+    
 <div class="form-group row">
     <div class="col-sm-2"></div>
     <div class="col-sm-3">Options</div>
@@ -47,7 +60,7 @@ function myquiz_testing(){
     <div class="col-sm-6"><input class="form-control" type="text" name="option1" placeholder="Option 1"></div>
     <div class="col-sm-3">
         <label class="radiolabel">
-            <input class="form-control" type="radio" name="options" >
+            <input class="form-control options" type="radio" name="options" id="option1" onclick="checkmultichoice(this);" >
             <span class="checkmark"></span>
         </label>
     </div>
@@ -58,7 +71,7 @@ function myquiz_testing(){
     <div class="col-sm-6"><input class="form-control" type="text" name="option2" placeholder="Option 2"></div>
     <div class="col-sm-3">
         <label class="radiolabel">
-            <input class="form-control" type="radio" name="options" >
+            <input class="form-control options" type="radio" name="options" onclick="checkmultichoice(this);">
             <span class="checkmark"></span>
         </label>
     </div>
@@ -69,7 +82,7 @@ function myquiz_testing(){
     <div class="col-sm-6"><input class="form-control" type="text" name="option3" placeholder="Option 3"></div>
     <div class="col-sm-3">
         <label class="radiolabel">
-            <input class="form-control" type="radio" name="options" >
+            <input class="form-control options" type="radio" name="options" onclick="checkmultichoice(this);">
             <span class="checkmark"></span>
         </label>
     </div>
@@ -81,7 +94,7 @@ function myquiz_testing(){
     <div class="col-sm-6"><input class="form-control" type="text" name="option4" placeholder="Option 4"></div>
     <div class="col-sm-3">
         <label class="radiolabel">
-            <input class="form-control" type="radio" name="options" >
+            <input class="form-control options" type="radio" name="options" onclick="checkmultichoice(this);">
             <span class="checkmark"></span>
         </label>
     </div>

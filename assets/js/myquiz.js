@@ -5,118 +5,76 @@
  */
 
 
-function multichoiceyes(element){
-
-    var radiobuttonno = document.getElementById('radiobuttonforno');
-        radiobuttonno.checked = false;
-    document.getElementById('allowedmultichoice').style.display = "block";
-    document.getElementById('allowedmultichoicelevel').style.display = "block";
-    var allradiobuttons = document.getElementsByClassName("correctanswer");
-    for( i=0; i<allradiobuttons.length; i++ ){
-        allradiobuttons[i].checked = false;
-        allradiobuttons[i].setAttribute("type", "checkbox");
+function multichoiceyes(){
+    var getoptions = document.getElementsByClassName("options");
+    var i;
+    for( i=0; i<getoptions.length; i++ ){
+        var parent = getoptions[i].parentElement;    
+        getoptions[i].setAttribute("type","checkbox");
+        getoptions[i].setAttribute("onclick","checkmultichoice(this);");
+        parent.setAttribute("class","checkboxlabel");
+        
     }
-    element.setAttribute("value", "1");
-    radiobuttonno.removeAttribute("value");
+    document.getElementById('allowedmultichoice').style.display = "flex";
 }
 
-function multichoiceno(element){
+function multichoiceno(){
     
-    var radiobuttonyes = document.getElementById('radiobuttonforyes');
-        radiobuttonyes.checked = false;
-    document.getElementById('allowedmultichoice').style.display = "none";
-    document.getElementById('allowedmultichoicelevel').style.display = "none";
-    var allradiobuttons = document.getElementsByClassName("correctanswer");
-    for( i=0; i<allradiobuttons.length; i++ ){
-        allradiobuttons[i].checked = false;    
-        allradiobuttons[i].setAttribute("type", "radio");
+    var getoptions = document.getElementsByClassName("options");
+    var i;
+    for( i=0; i<getoptions.length; i++ ){
+        var parent = getoptions[i].parentElement;    
+        getoptions[i].setAttribute("type","radio");
+        getoptions[i].setAttribute("onclick","checkmultichoice(this);");
+        parent.setAttribute("class","radiolabel");
     }
-    element.setAttribute("value", "1");
-    radiobuttonyes.removeAttribute("value");
+    document.getElementById('allowedmultichoice').style.display = "none";
 }
 
-function checkmultichoice(element){
-    var multichoice = document.getElementById("radiobuttonforno").checked;
-    if ( multichoice === true ){
-        var countoption = document.getElementsByClassName("correctanswer");
-        var i;
-        for( i=0; i<countoption.length; i++ ){
-            countoption[i].checked = false;
-        }
-        element.checked = true;
-        element.setAttribute("value","1");
-    }
-    else{
-        var selectvalue = document.getElementById("allowedmultichoice").value;
-        var countoption = document.getElementsByClassName("correctanswer");
-        var i;
-        var checkedcount = 0;
-        for( i=0; i<countoption.length; i++ ){
-            if(countoption[i].checked === true){
+function checkmultichoice(current){
+//    console.log(current.id);
+//    return false;
+    
+    var alloptions = document.getElementsByClassName("options");
+    var checkedcount = 0;
+    var selectvalue = document.getElementById("numbersofanswer").value;
+    var i;
+        for( i=0; i<alloptions.length; i++){
+            if(alloptions[i].checked === true){
                 checkedcount += 1;
             }
-            
         }
-        if( selectvalue < checkedcount ){
-            window.alert("Not allowed more option as correct answer");
-            element.checked = false;
+        
+    var multichoice = document.getElementById("radiobuttonforyes");
+    if(multichoice.checked === true ){
+        if(selectvalue < checkedcount){
+            current.checked = false;
+            return false;
         }
-        else{
-            element.setAttribute("value","1");
-            element.checked = true;
-        }
+       
     }
-    
-    
-}
-
-
-function addoptions(){
-    var count = document.getElementsByClassName("options").length;
-    var x = document.getElementsByTagName("tr");
-    var parenttable = document.getElementById("quiztable");
-    var elementafter = document.getElementById("addoptionbutton");
-    var radiostatus = document.getElementById("radiobuttonforyes").checked;
-    
-    var i;
-    var indexoftr;
-    for (i = 0; i < x.length; i++) {
-    if( x[i] === elementafter ){
-        indexoftr = i;
-    }
-    }
-    
-    if(count < 6 ){
-        var row = parenttable.insertRow(indexoftr);
-        var cell1 = row.insertCell(0);
-        var cell2 = row.insertCell(1);
-        var cell3 = row.insertCell(2);
-        cell1.setAttribute("class", "options");
-        cell1.innerHTML = "Option"+(count+1);
-        cell2.innerHTML = "<input id='option"+(count + 1)+"' type='text' name='option"+(count + 1)+"'>";
-        if( radiostatus === true ){
-            cell3.innerHTML = "<td><input id='correctanswer' class='correctanswer' type='checkbox' name='correntansweroption"+(count + 1)+"' onclick='checkmultichoice(this);' ></td>";
-        }
-        else{
-            cell3.innerHTML = "<td><input id='correctanswer' class='correctanswer' type='radio' name='correntansweroption"+(count + 1)+"' onclick='checkmultichoice(this);' ></td>";
-        }
-    }
-    else{
-        return false;
-    }
-
 }
 
 function addmoreoption(){
     var alloptions = document.getElementById("alloptions");
-    var numberofoptionsnow = alloptions.ch;
-//    var newoption = alloptions.childNodes[0].cloneNode(true);
-//    var allchilds = newoption.children;
-//    allchilds[0].innerHTML = "Option "+(numberofoptionsnow+1);
-//    allchilds[1].innerHTML = "<input class='form-control' type='text' name='option"+(numberofoptionsnow+1)+"' placeholder='Option "+(numberofoptionsnow+1)+"'>";
-//    allchilds[2].innerHTML = "<label class='radiolabel'><input class='form-control' type='radio' name='options'><span class='checkmark'></span></label>";
-//    alloptions.push(newoption);
-//    alloptions.splice(numberofoptionsnow, 0, newoption);
-    console.log(numberofoptionsnow);
-   //alloptions[-1].insertAdjacentHTML('afterend',newoption);
+    var numberofoptionsnow = alloptions.childElementCount;
+    if(numberofoptionsnow < 6){
+    var inputEle = document.createElement("div");
+    inputEle.setAttribute("class", "form-group row");
+    if(document.getElementById("radiobuttonforyes").checked === true){
+        var inputtype = "checkbox";
+        var inputclass = "checkboxlabel";
+    }
+    else{
+        var inputtype = "radio";
+        var inputclass = "radiolabel";
+    }
+    var nextelement = "<div class='col-sm-2'>Option "+(numberofoptionsnow+1)+"</div><div class='col-sm-6'><input class='form-control' type='text' name='option"+(numberofoptionsnow+1)+"' placeholder='Option "+(numberofoptionsnow+1)+"'></div><div class='col-sm-3'><label class='"+inputclass+"'><input class='form-control options' type='"+inputtype+"' name='options' onclick='checkmultichoice(this);' ><span class='checkmark'></span></label></div>";
+    inputEle.innerHTML = nextelement;
+    alloptions.appendChild(inputEle);
+    }
+    else{
+        return false;
+    }
+    
 }
