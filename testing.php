@@ -6,14 +6,21 @@
  * and open the template in the editor.
  */
 
-function myquiz_testing(){
+
+
+function myquiz_addquestion(){
+    global $wpdb;
+    if($_POST){
+    var_dump($_POST);
+    
+} 
 ?>
 
 <div class="wrap">
 <h1 class="wp-heading-inline">Add New Quiz</h1>
 <hr class="wp-header-end">
 <div class="myquizform">
-
+    <form method="post" action="" name="addquestion">
 <div class="form-group row">
     <label for="staticEmail" class="col-sm-2 col-form-label">Question :</label>
     <div class="col-sm-9">
@@ -60,7 +67,7 @@ function myquiz_testing(){
     <div class="col-sm-6"><input class="form-control" type="text" name="option1" placeholder="Option 1"></div>
     <div class="col-sm-3">
         <label class="radiolabel">
-            <input class="form-control options" type="radio" name="options" id="option1" onclick="checkmultichoice(this);" >
+            <input class="form-control options" type="radio" name="correntanswer[]" value="1" id="option1" onclick="checkmultichoice(this);" >
             <span class="checkmark"></span>
         </label>
     </div>
@@ -71,7 +78,7 @@ function myquiz_testing(){
     <div class="col-sm-6"><input class="form-control" type="text" name="option2" placeholder="Option 2"></div>
     <div class="col-sm-3">
         <label class="radiolabel">
-            <input class="form-control options" type="radio" name="options" onclick="checkmultichoice(this);">
+            <input class="form-control options" type="radio" name="correntanswer[]" value="2" onclick="checkmultichoice(this);">
             <span class="checkmark"></span>
         </label>
     </div>
@@ -82,7 +89,7 @@ function myquiz_testing(){
     <div class="col-sm-6"><input class="form-control" type="text" name="option3" placeholder="Option 3"></div>
     <div class="col-sm-3">
         <label class="radiolabel">
-            <input class="form-control options" type="radio" name="options" onclick="checkmultichoice(this);">
+            <input class="form-control options" type="radio" name="correntanswer[]" value="3" onclick="checkmultichoice(this);">
             <span class="checkmark"></span>
         </label>
     </div>
@@ -94,7 +101,7 @@ function myquiz_testing(){
     <div class="col-sm-6"><input class="form-control" type="text" name="option4" placeholder="Option 4"></div>
     <div class="col-sm-3">
         <label class="radiolabel">
-            <input class="form-control options" type="radio" name="options" onclick="checkmultichoice(this);">
+            <input class="form-control options" type="radio" name="correntanswer[]" value="4" onclick="checkmultichoice(this);">
             <span class="checkmark"></span>
         </label>
     </div>
@@ -103,7 +110,7 @@ function myquiz_testing(){
     
 <div class="form-group row">
     <div class="col-sm-2"></div>
-    <div class="col-sm-2"><button  class="button button-primary" onclick="addmoreoption();">Add More Options</button></div>
+    <div class="col-sm-2"><a  class="button button-primary " style="color: white;" onclick="addmoreoption();">Add More Options</a></div>
   
 </div>
     
@@ -128,9 +135,10 @@ function myquiz_testing(){
     <div class="row">
         <div class="col-sm-2"></div>
         <div class="col-sm-2 mt-4">
-            <button class="button button-primary" type="button" onclick="submit_form(); return false;">Submit Question</button>
+            <button class="button button-primary" type="submit" >Submit Question</button>
         </div>
     </div>
+</form>    
 </div>    
 </div>
 
