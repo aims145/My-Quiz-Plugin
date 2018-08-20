@@ -5,17 +5,13 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
+
 if(!class_exists('WP_List_Table')){
     require_once( ABSPATH . 'wp-admin/includes/class-wp-list-table.php' );
 }
 class Custom_Wplist_Table extends WP_List_Table {
-    function myquiz_page(){
-            global $wpdb;
-            $url = admin_url();
-            $table_name = $wpdb->prefix .MYTABLE;
-            $table_data = $wpdb->get_results("select * from $table_name", ARRAY_A);
-            var_dump($table_data);
-    }
+            
+    
     
     function __construct(){
         global $status, $page;
@@ -41,9 +37,13 @@ class Custom_Wplist_Table extends WP_List_Table {
 
 }
 
+function myquiz_page(){
 
-
-    
+            global $wpdb;
+            $url = admin_url();
+            $table_name = $wpdb->prefix .MYTABLE;
+            $table_data = $wpdb->get_results("select * from $table_name", ARRAY_A);
+            var_dump($table_data);
     ?>
 <div class="wrap">
     <h2>My Quizzes</h2>
@@ -51,4 +51,10 @@ class Custom_Wplist_Table extends WP_List_Table {
     <a href="<?php echo $url."admin.php?page=myquiz_addquiz"?>" class="page-title-action">Add New Quiz</a>
     <hr>
 </div>
+<?php }
+
+
+    
+    ?>
+
 

@@ -15,36 +15,20 @@ include(MYQUIZ_DIR.'testing.php');
 include(MYQUIZ_DIR.'Quiz.php');
 include(MYQUIZ_DIR.'AddQuiz.php');
 
-//function theme_scripts() {
-//  wp_enqueue_script('jquery');
-//}
-//add_action('wp_enqueue_scripts', 'theme_scripts');
-//function add_css_to_head(){
-//    $cssurl1 = MYQUIZ_URL.'assets/css/myquiz.css';
-//    $cssurl2 = MYQUIZ_URL.'assets/css/bootstrap.min.css';
-//    print "<link rel='stylesheet' href='".$cssurl1."'>";
-//    print "<link rel='stylesheet' href='".$cssurl2."'>";
-//    
-//}
-//add_action('admin_head', 'add_css_to_head');
-//
-//function add_js_to_footer(){
-//    $jsurl1 = MYQUIZ_URL.'assets/js/myquiz.js';
-//    $jsurl2 = MYQUIZ_URL.'assets/js/bootstrap.min.js';
-//    print "<script type='text/javascript' src='".$jsurl1."'></script>";
-//    print "<script type='text/javascript' src='".$jsurl2."'></script>";
-//}
-//add_action('admin_footer', 'add_js_to_footer');
-
-/**
-function myquiz_function(){
-    $text = "This is my wp plugin";
-    $text .= "<p>This is a new Para</p>";
-    return $text;
+function add_css_to_head(){
+    $cssurl1 = MYQUIZ_URL.'assets/css/myquiz.css';
+    //$cssurl2 = MYQUIZ_URL.'assets/css/bootstrap.min.css';
+    print "<link rel='stylesheet' href='".$cssurl1."'>";
+    //print "<link rel='stylesheet' href='".$cssurl2."'>";   
 }
-add_shortcode("Example", myquiz_function);
-
-*/
+    add_action('admin_head', 'add_css_to_head');
+function add_js_to_footer(){
+    $jsurl1 = MYQUIZ_URL.'assets/js/myquiz.js';
+    //$jsurl2 = MYQUIZ_URL.'assets/js/bootstrap.min.js';
+    print "<script type='text/javascript' src='".$jsurl1."'></script>";
+    //print "<script type='text/javascript' src='".$jsurl2."'></script>";
+}
+    add_action('admin_footer', 'add_js_to_footer');
 
 function myquiz_add_menu_option(){
     add_menu_page('My Quiz', 'My Quiz', 'manage_options', 'myquiz-admin-menu', 'myquiz_page', '', 200);

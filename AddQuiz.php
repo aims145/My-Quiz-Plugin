@@ -43,6 +43,10 @@ function myquiz_addquiz(){
     <h2>Add New Quiz</h2>
     <hr>
     <form method="post" action="" name="addquiz">
+    
+        
+        
+        
     <div class="form-group row">
     <label for="quizname" class="col-sm-3 col-form-label">Quiz Name</label>
     <div class="col-sm-9">
