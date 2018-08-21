@@ -11,7 +11,7 @@
 define('MYQUIZ_DIR', plugin_dir_path(__FILE__));
 define('MYQUIZ_URL', plugin_dir_url(__FILE__));
 define('MYTABLE', "my_quiz");
-
+define('MYQUESTIONS', "my_quiz_questions");
 //function add_css_to_head(){
 //    $cssurl1 = MYQUIZ_URL.'assets/css/myquiz.css';
 //    print "<link rel='stylesheet' href='".$cssurl1."'>";
@@ -77,9 +77,37 @@ function create_table_on_activation(){
 
     require_once( ABSPATH . 'wp-admin/includes/upgrade.php' );
     dbDelta( $sql );
+    $table_name = $wpdb->prefix .MYQUESTIONS;
+    $sql = "CREATE TABLE IF NOT EXISTS $table_name (
+         `question_id` int(10) NOT NULL AUTO_INCREMENT,
+         `question` text NOT NULL,
+         `multichoice` tinyint(1) NOT NULL,
+         `numberofoptions` int(10) NOT NULL,
+         `correntanswer` varchar(100) NOT NULL,
+         `answerallowed` int(10) NOT NULL,
+         `answerdescription` text NOT NULL,
+         `quiz_id` int(10) NOT NULL,
+         `timestamp` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
+         PRIMARY KEY (`question_id`)
+        ) $charset_collate;";
+    require_once( ABSPATH . 'wp-admin/includes/upgrade.php' );
+    dbDelta( $sql );
 }
 
 register_activation_hook(__FILE__, 'create_table_on_activation');
+
+
+function drop_table_on_delete(){
+    global $wpdb;
+    $table_name = $wpdb->prefix .MYTABLE;
+    $sql = "drop table $table_name";
+    require_once( ABSPATH . 'wp-admin/includes/upgrade.php' );
+    dbDelta( $sql );
+}
+
+
+register_uninstall_hook(__FILE__,'drop_table_on_delete');
+
 
 
 function myquiz_page(){

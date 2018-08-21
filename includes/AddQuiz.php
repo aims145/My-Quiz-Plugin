@@ -5,7 +5,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-
+global $wpdb;
 $table_name = $wpdb->prefix .MYTABLE;
 if($_POST["submitaddquiz"]){
 
@@ -20,7 +20,6 @@ array(
 ));
 
 }
-    
 
     ?>
 <link rel="stylesheet" href="<?php echo MYQUIZ_URL.'assets/css/bootstrap.min.css'; ?>" />

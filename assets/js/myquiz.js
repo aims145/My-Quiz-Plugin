@@ -36,8 +36,10 @@ function multichoiceno(){
 function checkmultichoice(current){
 //    console.log(current.id);
 //    return false;
-    
+
     var alloptions = document.getElementsByClassName("options");
+    document.getElementById("optionscount").value = alloptions.length;
+    console.log(alloptions.length);
     var checkedcount = 0;
     var selectvalue = document.getElementById("numbersofanswer").value;
     var i;
@@ -69,7 +71,7 @@ function addmoreoption(){
     else{
         var inputtype = "radio";
     }
-    var nextelement = "<div class='col-sm-2'>Option "+(numberofoptionsnow+1)+"</div><div class='col-sm-6'><input class='form-control' type='text' name='option"+(numberofoptionsnow+1)+"' placeholder='Option "+(numberofoptionsnow+1)+"'></div><div class='col-sm-3'><label class='"+inputclass+"'><input class='form-control options' type='"+inputtype+"' name='correntanswer[]' onclick='checkmultichoice(this);' ><span class='checkmark'></span></label></div>";
+    var nextelement = "<div class='col-sm-2'>Option "+(numberofoptionsnow+1)+"</div><div class='col-sm-6'><input class='form-control' type='text' name='option"+(numberofoptionsnow+1)+"' placeholder='Option "+(numberofoptionsnow+1)+"'></div><div class='col-sm-3'><label class='radiolabel'><input class='form-control options' type='"+inputtype+"' name='correntanswer[]' onclick='checkmultichoice(this);' ><span class='checkmark'></span></label></div>";
     inputEle.innerHTML = nextelement;
     alloptions.appendChild(inputEle);
     }
