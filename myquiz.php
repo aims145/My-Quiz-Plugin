@@ -78,18 +78,19 @@ function create_table_on_activation(){
     require_once( ABSPATH . 'wp-admin/includes/upgrade.php' );
     dbDelta( $sql );
     $table_name = $wpdb->prefix .MYQUESTIONS;
-    $sql = "CREATE TABLE IF NOT EXISTS $table_name (
+    $sql = "CREATE TABLE IF NOT EXISTS `wp_my_quiz_questions` (
          `question_id` int(10) NOT NULL AUTO_INCREMENT,
-         `question` text NOT NULL,
+         `question` text COLLATE utf8mb4_unicode_520_ci NOT NULL,
+         `options` text COLLATE utf8mb4_unicode_520_ci NOT NULL,
          `multichoice` tinyint(1) NOT NULL,
          `numberofoptions` int(10) NOT NULL,
-         `correntanswer` varchar(100) NOT NULL,
+         `correctanswer` varchar(100) COLLATE utf8mb4_unicode_520_ci NOT NULL,
          `answerallowed` int(10) NOT NULL,
-         `answerdescription` text NOT NULL,
+         `answerdescription` text COLLATE utf8mb4_unicode_520_ci NOT NULL,
          `quiz_id` int(10) NOT NULL,
          `timestamp` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
          PRIMARY KEY (`question_id`)
-        ) $charset_collate;";
+         ) $charset_collate;";
     require_once( ABSPATH . 'wp-admin/includes/upgrade.php' );
     dbDelta( $sql );
 }
