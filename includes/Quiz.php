@@ -18,6 +18,26 @@ var_dump($table_data);
     <h1 class="wp-heading-inline">Quiz</h1>
     <a href="<?php echo $url."admin.php?page=myquiz_addquiz"?>" class="page-title-action">Add New Quiz</a>
     <hr>
+    <div class="table-responsive">
+        <table class="table ">
+            <thead class="thead-dark">
+                <tr>
+                    <td><input class="form-control" type="checkbox" ></td>
+                    <td>Quiz ID</td>
+                    <td>Quiz Name</td>
+                    <td>Number of Questions</td>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td><input class="form-control" type="checkbox" ></td>
+                    <td>1</td>
+                    <td>Sample</td>
+                    <td>50</td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
 </div>
 
 

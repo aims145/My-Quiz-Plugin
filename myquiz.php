@@ -12,6 +12,7 @@ define('MYQUIZ_DIR', plugin_dir_path(__FILE__));
 define('MYQUIZ_URL', plugin_dir_url(__FILE__));
 define('MYTABLE', "my_quiz");
 define('MYQUESTIONS', "my_quiz_questions");
+include(MYQUIZ_DIR.'/includes/wp-list-table-quiz.php');
 //function add_css_to_head(){
 //    $cssurl1 = MYQUIZ_URL.'assets/css/myquiz.css';
 //    print "<link rel='stylesheet' href='".$cssurl1."'>";
