@@ -6,39 +6,25 @@
  * and open the template in the editor.
  */
 
-function myquiz_addquiz(){
-    global $wpdb;
-	$charset_collate = $wpdb->get_charset_collate();
-	$table_name = $wpdb->prefix .MYTABLE;
+$table_name = $wpdb->prefix .MYTABLE;
+if($_POST["submitaddquiz"]){
 
-	$sql = "CREATE TABLE IF NOT EXISTS $table_name (
-             `quiz_id` int(10) NOT NULL AUTO_INCREMENT,
-             `quiz_name` varchar(100) COLLATE utf8mb4_unicode_520_ci NOT NULL,
-             `quiz_description` text COLLATE utf8mb4_unicode_520_ci NOT NULL,
-             `quiz_addedquestions` int(10) NOT NULL,
-             PRIMARY KEY (`quiz_id`),
-             UNIQUE KEY `quiz_name` (`quiz_name`)
-	) $charset_collate;";
+//var_dump($_POST);
+$quizname = $_POST["quizname"];
+$quizdescription = $_POST["quizdescription"];
 
-	require_once( ABSPATH . 'wp-admin/includes/upgrade.php' );
-	dbDelta( $sql );
+$insertstatus = $wpdb->insert($table_name, 
+array( 
+    'quiz_name' => $quizname,
+    'quiz_description' => $quizdescription
+));
 
-    if($_POST["submitaddquiz"]){
-    
-        //var_dump($_POST);
-       $quizname = $_POST["quizname"];
-       $quizdescription = $_POST["quizdescription"];
-       
-       $insertstatus = $wpdb->insert($table_name, 
-        array( 
-            'quiz_name' => $quizname,
-            'quiz_description' => $quizdescription
-        ));
-       
-    }
+}
     
 
     ?>
+<link rel="stylesheet" href="<?php echo MYQUIZ_URL.'assets/css/bootstrap.min.css'; ?>" />
+<script type='text/javascript' src="<?php echo MYQUIZ_URL.'assets/js/bootstrap.min.js'; ?>"></script>
 <div class="wrap">
     <h2>Add New Quiz</h2>
     <hr>
@@ -91,4 +77,4 @@ function myquiz_addquiz(){
     
 </div>
 <?php
-}
+

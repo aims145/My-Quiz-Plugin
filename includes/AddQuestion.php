@@ -5,17 +5,14 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-
-
-
-function myquiz_addquestion(){
-    global $wpdb;
-    if($_POST){
-    var_dump($_POST);
+global $wpdb;
+if($_POST){
+var_dump($_POST);
     
 } 
 ?>
-
+<link rel="stylesheet" href="<?php echo MYQUIZ_URL.'assets/css/bootstrap.min.css'; ?>" />
+<script type='text/javascript' src="<?php echo MYQUIZ_URL.'assets/js/bootstrap.min.js'; ?>"></script>
 <div class="wrap">
 <h1 class="wp-heading-inline">Add New Quiz</h1>
 <hr class="wp-header-end">
@@ -141,6 +138,3 @@ function myquiz_addquestion(){
 </form>    
 </div>    
 </div>
-
-<?php
-}
