@@ -7,7 +7,7 @@
  */
 global $wpdb;
 $url = admin_url();
-$table_name = $wpdb->prefix .MYTABLE;
+$table_name = $wpdb->prefix.MYTABLE;
 $table_data = $wpdb->get_results("select * from $table_name");
 
 if($_POST["action"]){
@@ -32,6 +32,7 @@ if($_POST["action"]){
     <h1 class="wp-heading-inline">Quiz</h1>
     <a href="<?php echo $url."admin.php?page=myquiz_addquiz"?>" class="page-title-action">Add New Quiz</a>
     <hr>
+    <p id="quizalert" style="display: none;"></p>
     <div class="row">
         <div class="col-sm-2">
             <select name="deletequiz" class="form-control custom-bulk-action">

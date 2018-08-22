@@ -83,10 +83,23 @@ function addmoreoption(){
 
 $(document).on("click", "#deleteonerow", function () {
     var quizid = $(this).data('id');
-    $parameters = "action=delete&quizid="+quizid;
-    //console.log(admin_ajax);
-    $.post(admin_ajax,$parameters,function(response){
+    console.log(quizid);
+    var parameters = "action=delete_quiz&quizid="+quizid;
+    console.log(admin_ajax);
+    $.post(admin_ajax,parameters,function(response){
         console.log(response);
+        var quizalert = document.getElementById("quizalert");
+        if(response === "Deleted"){
+            quizalert.style.display = "block";
+            quizalert.innerHTML = "Quiz "+response+" Successfully";
+            quizalert.setAttribute("class", "alert alert-success")
+        }
+        else{
+            quizalert.style.display = "block";
+            quizalert.innerHTML = "Error : "+response;
+            quizalert.setAttribute("class", "alert alert-danger")
+        }
+       
     });
 
 });

@@ -12,7 +12,6 @@ define('MYQUIZ_DIR', plugin_dir_path(__FILE__));
 define('MYQUIZ_URL', plugin_dir_url(__FILE__));
 define('MYTABLE', "my_quiz");
 define('MYQUESTIONS', "my_quiz_questions");
-include(MYQUIZ_DIR.'/includes/wp-list-table-quiz.php');
 //function add_css_to_head(){
 //    $cssurl1 = MYQUIZ_URL.'assets/css/myquiz.css';
 //    print "<link rel='stylesheet' href='".$cssurl1."'>";
@@ -64,10 +63,24 @@ function add_css_and_js_myquiz(){
     
     //wp_localize_script("myuiz_ajax", "ajax_url",  admin_url("admin-ajax.php"));
     
-    wp_localize_script("myquiz_script", "admin_ajax",  admin_url("admin-ajax.php"));
+    wp_localize_script("myquiz_script","admin_ajax",admin_url("admin-ajax.php"));
 }
 add_action("init","add_css_and_js_myquiz");
 
+if(isset($_REQUEST['action'])){  // it checks the action param is set or not
+     switch($_REQUEST['action']){  // if set pass to switch method to match case
+     case "delete_quiz" : 
+    
+    add_action("admin_init","delete_single_quiz");  // match case
+      function delete_single_quiz(){  // function attached with the action hook
+      global $wpdb;
+      include_once MYQUIZ_DIR.'/library/custom_quiz_action.php';  // ajax handler file within /library folder
+      }
+      
+      break;
+     
+     }
+}
 function create_table_on_activation(){
     global $wpdb;
     $charset_collate = $wpdb->get_charset_collate();
@@ -75,7 +88,7 @@ function create_table_on_activation(){
 
     $sql = "CREATE TABLE IF NOT EXISTS $table_name (
          `quiz_id` int(10) NOT NULL AUTO_INCREMENT,
-         `quiz_name` varchar(100) COLLATE utf8mb4_unicode_520_ci NOT NULL,
+         `quiz_name` text COLLATE utf8mb4_unicode_520_ci NOT NULL,
          `quiz_description` text COLLATE utf8mb4_unicode_520_ci NOT NULL,
          `quiz_addedquestions` int(10) NOT NULL,
          PRIMARY KEY (`quiz_id`)
