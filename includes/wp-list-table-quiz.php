@@ -171,4 +171,182 @@ class Customers_List extends WP_List_Table {
 
 		return $sortable_columns;
 	}
+        
+        /**
+	 * Returns an associative array containing the bulk action
+	 *
+	 * @return array
+	 */
+	public function get_bulk_actions() {
+		$actions = [
+			'bulk-delete' => 'Delete'
+		];
+
+		return $actions;
+	}
+        
+        /**
+	 * Handles data query and filter, sorting, and pagination.
+	 */
+	public function prepare_items() {
+
+		$this->_column_headers = $this->get_column_info();
+
+		/** Process bulk action */
+		$this->process_bulk_action();
+
+		$per_page     = $this->get_items_per_page( 'customers_per_page', 5 );
+		$current_page = $this->get_pagenum();
+		$total_items  = self::record_count();
+
+		$this->set_pagination_args( [
+			'total_items' => $total_items, //WE have to calculate the total number of items
+			'per_page'    => $per_page //WE have to determine how many items to show on a page
+		] );
+
+		$this->items = self::get_customers( $per_page, $current_page );
+	}
+        
+        public function process_bulk_action() {
+
+		//Detect when a bulk action is being triggered...
+		if ( 'delete' === $this->current_action() ) {
+
+			// In our file that handles the request, verify the nonce.
+			$nonce = esc_attr( $_REQUEST['_wpnonce'] );
+
+			if ( ! wp_verify_nonce( $nonce, 'sp_delete_customer' ) ) {
+				die( 'Go get a life script kiddies' );
+			}
+			else {
+				self::delete_customer( absint( $_GET['customer'] ) );
+
+		                // esc_url_raw() is used to prevent converting ampersand in url to "#038;"
+		                // add_query_arg() return the current url
+		                wp_redirect( esc_url_raw(add_query_arg()) );
+				exit;
+			}
+
+		}
+
+		// If the delete bulk action is triggered
+		if ( ( isset( $_POST['action'] ) && $_POST['action'] == 'bulk-delete' )
+		     || ( isset( $_POST['action2'] ) && $_POST['action2'] == 'bulk-delete' )
+		) {
+
+			$delete_ids = esc_sql( $_POST['bulk-delete'] );
+
+			// loop over the array of record IDs and delete them
+			foreach ( $delete_ids as $id ) {
+				self::delete_customer( $id );
+
+			}
+
+			// esc_url_raw() is used to prevent converting ampersand in url to "#038;"
+		        // add_query_arg() return the current url
+		        wp_redirect( esc_url_raw(add_query_arg()) );
+			exit;
+		}
+	}
+        
 }
+
+
+class SP_Plugin {
+
+	// class instance
+	static $instance;
+
+	// customer WP_List_Table object
+	public $customers_obj;
+
+	// class constructor
+	public function __construct() {
+		add_filter( 'set-screen-option', [ __CLASS__, 'set_screen' ], 10, 3 );
+		add_action( 'admin_menu', [ $this, 'plugin_menu' ] );
+	}
+
+
+	public static function set_screen( $status, $option, $value ) {
+		return $value;
+	}
+
+	public function plugin_menu() {
+                
+		$hook = add_submenu_page(
+			'myquiz-allquizzes',
+			'SP WP_List_Table',
+                        'view',
+			'manage_options',
+			'wp_list_table_class',
+			[ $this, 'plugin_settings_page' ]
+		);
+
+		add_action( "load-$hook", [ $this, 'screen_option' ] );
+
+	}
+
+
+	/**
+	 * Plugin settings page
+	 */
+	public function plugin_settings_page() {
+		?>
+		<div class="wrap">
+			<h2>WP_List_Table Class Example</h2>
+
+			<div id="poststuff">
+				<div id="post-body" class="metabox-holder columns-2">
+					<div id="post-body-content">
+						<div class="meta-box-sortables ui-sortable">
+							<form method="post">
+								<?php
+								$this->customers_obj->prepare_items();
+								$this->customers_obj->display(); ?>
+							</form>
+						</div>
+					</div>
+				</div>
+				<br class="clear">
+			</div>
+		</div>
+	<?php
+	}
+
+	/**
+	 * Screen options
+	 */
+	public function screen_option() {
+
+		$option = 'per_page';
+		$args   = [
+			'label'   => 'Customers',
+			'default' => 5,
+			'option'  => 'customers_per_page'
+		];
+
+		add_screen_option( $option, $args );
+
+		$this->customers_obj = new Customers_List();
+	}
+
+
+	/** Singleton instance */
+	public static function get_instance() {
+		if ( ! isset( self::$instance ) ) {
+			self::$instance = new self();
+		}
+
+		return self::$instance;
+	}
+
+}
+
+
+
+
+add_action( 'plugins_loaded', function () {
+	SP_Plugin::get_instance();
+} );
+
+

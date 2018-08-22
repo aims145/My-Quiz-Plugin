@@ -44,6 +44,10 @@ if($_POST["questionform"]){
 
     $table_name = $wpdb->prefix.MYQUESTIONS;
     $insertstatus = $wpdb->insert($table_name, $data);
+    $quiz_table = $wpdb->prefix.MYTABLE;
+    $sql = "UPDATE $quiz_table SET `quiz_addedquestions` = quiz_addedquestions + 1 WHERE `quiz_id`='".$quiz_id."' ";
+    require_once( ABSPATH . 'wp-admin/includes/upgrade.php' );
+    dbDelta( $sql );
 
 }
 $table_name = $wpdb->prefix.MYTABLE;
@@ -92,7 +96,18 @@ $table_data = $wpdb->get_results("select * from $table_name");
 <div class="form-group row">
     <label for="staticEmail" class="col-sm-2 col-form-label">Question :</label>
     <div class="col-sm-9">
-        <textarea name="question" class="form-control" id="question" placeholder="Enter your Question"></textarea>
+<!--        <textarea name="question" class="form-control" id="question" placeholder="Enter your Question"></textarea>-->
+        <?php    
+                $editor_id = 'question';
+                //$uploaded_csv = get_post_meta( $post->ID, 'custom_editor_box', true);
+                $settings = array(
+                    'editor_height' => 150, // In pixels, takes precedence and has no default value
+                    'textarea_rows' => 10,  // Has no visible effect if editor_height is set, default is 20
+                    'media_buttons' => false
+                );
+                $boxcontent = '';
+                wp_editor( $boxcontent, $editor_id, $settings );    
+            ?>
     </div>
 </div>    
 

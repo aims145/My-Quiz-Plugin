@@ -50,17 +50,23 @@ function myquiz_add_menu_option(){
                     'myquiz_addquiz', //Page slug
                     'myquiz_addquiz' // callback function
                     );
-    add_submenu_page('myquiz-allquizzes', 'Add Questions', 'Add Questions Quiz', 'manage_options', 'myquiz_addquestion', 'myquiz_addquestion');
+    add_submenu_page('myquiz-allquizzes', 'All Questions', 'All Questions', 'manage_options', 'myquiz_allquestions', 'myquiz_allquestions');
+    add_submenu_page('myquiz-allquizzes', 'Add Questions', 'Add Questions', 'manage_options', 'myquiz_addquestion', 'myquiz_addquestion');
     
 }
 
 add_action('admin_menu', 'myquiz_add_menu_option');
 
-function add_css_myquiz(){
+function add_css_and_js_myquiz(){
     wp_enqueue_style("myquiz_style", MYQUIZ_URL.'assets/css/myquiz.css');
+    wp_enqueue_script("jquery_custom", MYQUIZ_URL.'assets/js/jquery-3.3.1.min.js', '', '',true);
     wp_enqueue_script("myquiz_script", MYQUIZ_URL.'assets/js/myquiz.js', '', '',true);
+    
+    //wp_localize_script("myuiz_ajax", "ajax_url",  admin_url("admin-ajax.php"));
+    
+    wp_localize_script("myquiz_script", "admin_ajax",  admin_url("admin-ajax.php"));
 }
-add_action("init","add_css_myquiz");
+add_action("init","add_css_and_js_myquiz");
 
 function create_table_on_activation(){
     global $wpdb;
@@ -72,8 +78,7 @@ function create_table_on_activation(){
          `quiz_name` varchar(100) COLLATE utf8mb4_unicode_520_ci NOT NULL,
          `quiz_description` text COLLATE utf8mb4_unicode_520_ci NOT NULL,
          `quiz_addedquestions` int(10) NOT NULL,
-         PRIMARY KEY (`quiz_id`),
-         UNIQUE KEY `quiz_name` (`quiz_name`)
+         PRIMARY KEY (`quiz_id`)
     ) $charset_collate;";
 
     require_once( ABSPATH . 'wp-admin/includes/upgrade.php' );
@@ -120,7 +125,15 @@ function myquiz_addquiz(){
     include_once MYQUIZ_DIR.'/includes/AddQuiz.php';
 }
 
+function mysql_allquestions(){
+    include_once MYQUIZ_DIR.'/includes/Questions.php';
+}
+
 function myquiz_addquestion(){
     include_once MYQUIZ_DIR.'/includes/AddQuestion.php';
 }
+
+//include_once MYQUIZ_DIR.'/includes/wp-list-table-quiz.php';
+
+
 

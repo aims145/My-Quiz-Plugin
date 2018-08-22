@@ -80,3 +80,26 @@ function addmoreoption(){
     }
     
 }
+
+$(document).on("click", "#deleteonerow", function () {
+    var quizid = $(this).data('id');
+    $parameters = "action=delete&quizid="+quizid;
+    //console.log(admin_ajax);
+    $.post(admin_ajax,$parameters,function(response){
+        console.log(response);
+    });
+
+});
+
+$(document).on("click", "#editonerow", function () {
+     var quizid = $(this).data('id');
+     alert(quizid);
+     
+});
+
+//deleteonerow.addEventListener('click', 
+//function(){
+//    var quiz_id = deleteonerow.value;
+//    console.log(quiz_id);
+//}
+//);

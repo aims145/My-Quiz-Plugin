@@ -347,6 +347,7 @@ class SP_Plugin {
 }
 
 
+
 add_action( 'plugins_loaded', function () {
 	SP_Plugin::get_instance();
 } );

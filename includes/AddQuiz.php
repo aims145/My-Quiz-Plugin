@@ -42,7 +42,17 @@ array(
     <div class="form-group row">
     <label for="quizdescription" class="col-sm-3 col-form-label">Description</label>
     <div class="col-sm-9">
-        <textarea name="quizdescription" class="form-control" id="quizdescription" placeholder="Quiz Description"></textarea>
+        <?php    
+                $editor_id = 'quizdescription';
+                //$uploaded_csv = get_post_meta( $post->ID, 'custom_editor_box', true);
+                $settings = array(
+                    'editor_height' => 200, // In pixels, takes precedence and has no default value
+                    'textarea_rows' => 10,  // Has no visible effect if editor_height is set, default is 20
+                );
+                $boxcontent = '';
+                wp_editor( $boxcontent, $editor_id, $settings );
+                remove_action('media_buttons', 'media_buttons');
+            ?>
     </div>
     </div>    
     <div class="form-group row">
