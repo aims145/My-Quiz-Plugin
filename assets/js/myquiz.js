@@ -90,14 +90,19 @@ $(document).on("click", "#deleteonerow", function () {
         console.log(response);
         var quizalert = document.getElementById("quizalert");
         if(response === "Deleted"){
+            $("#"+quizid).remove();
+            //var tablerow = document.getElementById(quizid);
+            //tablerow.remove;
             quizalert.style.display = "block";
             quizalert.innerHTML = "Quiz "+response+" Successfully";
-            quizalert.setAttribute("class", "alert alert-success")
+            quizalert.setAttribute("class", "alert alert-success");
+            $("#quizalert").fadeOut(3000);
         }
         else{
             quizalert.style.display = "block";
             quizalert.innerHTML = "Error : "+response;
-            quizalert.setAttribute("class", "alert alert-danger")
+            quizalert.setAttribute("class", "alert alert-danger");
+            $("#quizalert").fadeOut(4000);
         }
        
     });

@@ -32,7 +32,7 @@ if($_POST["action"]){
     <h1 class="wp-heading-inline">Quiz</h1>
     <a href="<?php echo $url."admin.php?page=myquiz_addquiz"?>" class="page-title-action">Add New Quiz</a>
     <hr>
-    <p id="quizalert" style="display: none;"></p>
+    
     <div class="row">
         <div class="col-sm-2">
             <select name="deletequiz" class="form-control custom-bulk-action">
@@ -60,7 +60,7 @@ if($_POST["action"]){
             <tbody>
                 <?php 
                 foreach( $table_data as $row ){
-                    echo "<tr>";
+                    echo "<tr id='".$row->quiz_id."'>";
                     echo "<td><input class='form-control quiz-id' type='checkbox' name='allids[]' value='".$row->quiz_id."' ></td>";
                     echo "<td>".$row->quiz_id."</td>";
                     echo "<td>".$row->quiz_name."</td>";
@@ -85,6 +85,7 @@ if($_POST["action"]){
                 </tr>
             </tfoot>
         </table>
+        <p id="quizalert" ></p>
     </div>
 </div>
 
