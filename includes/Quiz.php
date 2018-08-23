@@ -67,7 +67,7 @@ if($_POST["action"]){
                     echo "<td>".$row->quiz_addedquestions."</td>";
                     echo "<td>".$row->Date."</td>";
                     echo "<td>";
-                    echo "<button class='btn btn-primary btn-sm' data-id='".$row->quiz_id."' id='editonerow' >Edit</button> "
+                    echo "<button class='btn btn-primary btn-sm' data-id='".$row->quiz_id."' data-toggle='modal' data-target='#editquiz' id='editonerow' >Edit</button> "
                          ."<button class='btn btn-danger btn-sm' data-id='".$row->quiz_id."' id='deleteonerow' >Delete</button>";
                     echo "</tr>";
                 }
@@ -76,7 +76,7 @@ if($_POST["action"]){
             </tbody>
             <tfoot class="thead-dark">
                 <tr>
-                    <th><input class="form-control quiz-id" type="checkbox"   ></th>
+                    <th><input class="form-control quiz-id" type="checkbox"></th>
                     <th>Quiz ID</th>
                     <th>Quiz Name</th>
                     <th>Number of Questions</th>
@@ -87,6 +87,85 @@ if($_POST["action"]){
         </table>
         <p id="quizalert" ></p>
     </div>
+<!-- The Modal -->
+<div class="modal" id="editquiz">
+  <div class="modal-dialog modal-lg">
+    <div class="modal-content">
+
+      <!-- Modal Header -->
+      <div class="modal-header">
+        <h4 class="modal-title">Edit Quiz</h4>
+        <button type="button" class="close" data-dismiss="modal">&times;</button>
+      </div>
+
+      <!-- Modal body -->
+      <div class="modal-body">
+          <form method="post" action="" name="editquiz">
+    
+        
+        
+        
+            <div class="form-group row">
+            <label for="quizname" class="col-sm-3 col-form-label">Quiz Name</label>
+            <div class="col-sm-9">
+                <input name="quizname" type="text" class="form-control" id="quizname" placeholder="Enter your Question">
+            </div>
+            </div>
+
+            <div class="form-group row">
+            <label for="quizdescription" class="col-sm-3 col-form-label">Description</label>
+            <div class="col-sm-9">
+                <?php    
+                        $editor_id = 'quizdescription';
+                        //$uploaded_csv = get_post_meta( $post->ID, 'custom_editor_box', true);
+                        $settings = array(
+                            'editor_height' => 200, // In pixels, takes precedence and has no default value
+                            'textarea_rows' => 10,  // Has no visible effect if editor_height is set, default is 20
+                        );
+                        $boxcontent = '';
+                        wp_editor( $boxcontent, $editor_id, $settings );
+                        remove_action('media_buttons', 'media_buttons');
+                    ?>
+            </div>
+            </div>    
+            <div class="form-group row">
+                <div class="col-sm-3"></div>
+            <div class="col-sm-9">
+                <input type="submit" name="submitaddquiz" class="button button-primary" value="Submit">
+            </div>
+            </div>
+                <div class="row">    
+                    <div class="col-sm-3"></div>
+                    <div class="col-sm-9">
+                <?php
+                if(isset($_POST["submitaddquiz"])){
+                    if($insertstatus == true){?>
+                              <p class='alert alert-success'>Quiz Created Successfully</p>
+                    <?php          
+                    }
+                    else{
+                        ?>
+                         <p class='alert alert-danger'><?php echo $wpdb->last_error;?></p>
+                         <?php
+                    }
+
+
+                }
+
+                ?>
+                    </div>    
+                </div>
+            </form>
+      </div>
+
+      <!-- Modal footer -->
+      <div class="modal-footer">
+        <button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
+      </div>
+
+    </div>
+  </div>
+</div>   
 </div>
 
 

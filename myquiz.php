@@ -79,6 +79,12 @@ if(isset($_REQUEST['action'])){  // it checks the action param is set or not
       
       break;
      
+     case "edit_quiz" : add_action("admin_init","edit_single_quiz");
+         function edit_single_quiz(){
+             global $wpdb;
+             include_once MYQUIZ_DIR.'/library/custom_quiz_action.php';  // ajax handler file within /library folder
+         }
+ 
      }
 }
 function create_table_on_activation(){

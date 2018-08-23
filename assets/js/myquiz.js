@@ -110,8 +110,17 @@ $(document).on("click", "#deleteonerow", function () {
 });
 
 $(document).on("click", "#editonerow", function () {
-     var quizid = $(this).data('id');
-     alert(quizid);
+    var quizid = $(this).data('id');
+    var parameters = "action=edit_quiz&quizid="+quizid;
+    $.post(admin_ajax,parameters,function(response){
+        var obj = $.parseJSON(response);
+        var quiz_name = obj[0]["quiz_name"];
+        var quiz_description = obj[0]["quiz_description"];
+        document.getElementById("quizname").value = quiz_name;
+        //document.getElementById("quizdescription").innerHTML = quiz_description;
+        document.getElementsByClassName("quizdescription").innerHTML = quiz_description;
+        
+    });
      
 });
 

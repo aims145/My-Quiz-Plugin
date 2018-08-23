@@ -7,13 +7,13 @@
  */
 
 $getParam = isset($_REQUEST['quizid'])?$_REQUEST['quizid']:'';
- if(!empty($getParam)){
+ if(!empty($getParam) and ( $_REQUEST['action'] == "edit_quiz" )){
      $table_name = $wpdb->prefix.MYTABLE;
-     $deletequery = "delete from $table_name where quiz_id='".$getParam."'";
-     $deletestatus = $wpdb->query($deletequery);
+     $query = "select * from $table_name where quiz_id='".$getParam."'";
+     $status = $wpdb->get_results($query);
 
-     if($deletestatus == true){
-         echo "Deleted";
+     if($status == true){
+         echo json_encode($status);
          die();
      }
      else{
