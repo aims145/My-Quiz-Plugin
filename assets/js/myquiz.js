@@ -148,3 +148,22 @@ $(document).on("click", "#selectallquestion", function (){
     }
     
 });
+
+
+//----------------- Select All quiz  --------------------//
+$(document).on("click", "#selectallquiz", function (){
+    $("#selectallquiz").prop('checked', true);
+    var allcheckbox = document.getElementsByClassName("quiz-id");
+    var checkboxcount = allcheckbox.length;
+    console.log(allcheckbox);
+    var i;
+    for( i=0; i<checkboxcount; i++ ){
+        if(allcheckbox[i].checked == true){
+            allcheckbox[i].checked = false;
+        }else{
+            allcheckbox[i].checked = true;
+        }
+        
+    }
+    
+});

@@ -8,7 +8,22 @@
 global $wpdb;
 $url = admin_url();
 $table_name = $wpdb->prefix.MYTABLE;
+
+
+if($_POST["deletebulkquiz"] and !empty($_POST["selecteddeletequiz"])){
+    $allids = implode(",", $_POST["allids"]);
+    $sql = "DELETE from $table_name WHERE quiz_id IN ($allids)";
+    if($wpdb->query($sql)){
+        $alert = "All Selected Quiz Deleted Successfully";
+        $state = "success";
+    }else{
+        $alert = "Error: ".$wpdb->last_error;
+        $state = "danger";
+    }
+}
+
 $table_data = $wpdb->get_results("select * from $table_name");
+
 
 
 ?>
@@ -22,26 +37,35 @@ $table_data = $wpdb->get_results("select * from $table_name");
     <h1 class="wp-heading-inline">Quiz</h1>
     <a href="<?php echo $url."admin.php?page=myquiz_addquiz"?>" class="page-title-action">Add New Quiz</a>
     <hr>
-    
+     <?php 
+    if(isset($alert) and $state == "success"){
+        echo "<p class='alert alert-success'>$alert</p>";
+    }
+    elseif(isset($alert) and $state == "danger") {
+            echo "<p class='alert alert-danger'>$alert</p>";
+    }
+    ?>
+    <form action="" method="post" name="bulk-action">
     <div class="row">
         <div class="col-sm-2">
-            <select name="deletequiz" class="form-control custom-bulk-action">
+            <select name="selecteddeletequiz" class="form-control custom-bulk-action">
                 <option value="">Bulk Action</option>
                 <option value="delete">Delete</option>
             </select>
         </div>
         <div class="col-sm-2">
-            <input class="form-control btn btn-secondary " type="button" name="deletebutton" value="Apply" >
+            <input class="form-control btn btn-secondary " type="submit" name="deletebulkquiz" value="Apply" >
         </div>
         
     </div>
     <div class="table-responsive mt-4">
         <table class="table table-hover">
-            <thead class="thead-dark">
+            <thead class="thead-dark">  
                 <tr>
-                    <th><input class="form-control quiz-id" type="checkbox"  ></th>
+                    <th><input class="form-control quiz-id"  type="checkbox" id="selectallquiz"  ></th>
                     <th>Quiz ID</th>
                     <th>Quiz Name</th>
+                    <th>Quiz Short Code</th>
                     <th>Number of Questions</th>
                     <th>Date</th>
                     <th>Action</th>
@@ -54,6 +78,7 @@ $table_data = $wpdb->get_results("select * from $table_name");
                     echo "<td><input class='form-control quiz-id' type='checkbox' name='allids[]' value='".$row->quiz_id."' ></td>";
                     echo "<td>".$row->quiz_id."</td>";
                     echo "<td>".$row->quiz_name."</td>";
+                    echo "<td></td>";
                     echo "<td>".$row->quiz_addedquestions."</td>";
                     echo "<td>".$row->Date."</td>";
                     echo "<td>";
@@ -66,9 +91,10 @@ $table_data = $wpdb->get_results("select * from $table_name");
             </tbody>
             <tfoot class="thead-dark">
                 <tr>
-                    <th><input class="form-control quiz-id" type="checkbox"></th>
+                    <th><input class="form-control quiz-id" type="checkbox" id="selectallquiz"></th>
                     <th>Quiz ID</th>
                     <th>Quiz Name</th>
+                    <th>Quiz Short Code</th>
                     <th>Number of Questions</th>
                     <th>Date</th>
                     <th>Action</th>
@@ -77,6 +103,7 @@ $table_data = $wpdb->get_results("select * from $table_name");
         </table>
         <p id="quizalert" ></p>
     </div>
+</form>
 <!-- The Modal -->
 <div class="modal" id="editquiz">
   <div class="modal-dialog modal-lg">

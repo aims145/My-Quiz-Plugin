@@ -22,6 +22,18 @@ if($_POST["deletebulkquestion"] and !empty($_POST["deleteselectedquestions"])){
     }
 }
 
+if(isset($_POST["deletequestion"])){
+    $questionid = $_POST["deletequestion"];
+    $sql = "delete from $table_ques where question_id='".$questionid."'";
+    if($wpdb->query($sql)){
+        $alert = "Questions Deleted Successfully";
+        $state = "success";
+    }else{
+        $alert = "Error: ".$wpdb->last_error;
+        $state = "danger";
+    }
+}
+
 
 
 $sql = "select * from $table_ques left join $table_quiz on ( $table_ques.quiz_id = $table_quiz.quiz_id )";
@@ -78,12 +90,12 @@ $table_data = $wpdb->get_results($sql);
                 echo "<tr>";
                 echo "<td><input class='form-control question-id' type='checkbox' name='allids[]' value='".$row->question_id."' ></td>";
                 echo "<td>".$row->question_id."</td>";
-                echo "<td>".$row->question."</td>";
+                echo "<td style='width: 375px;'>".substr($row->question, 0, 100)."</td>";
                 echo "<td>".$row->quiz_name."</td>";
                 echo "<td>".$row->timestamp."</td>";
                 echo "<td>";
                 echo "<button class='btn btn-primary btn-sm' data-id='".$row->question_id."' data-toggle='modal' data-target='#editques' id='editonerow' >Edit</button> "
-                         ."<button class='btn btn-danger btn-sm' data-id='".$row->question_id."' id='deletequestion' >Delete</button>";
+                         ."<button class='btn btn-danger btn-sm' type='submit' value='".$row->question_id."' name='deletequestion' >Delete</button>";
                 echo "</td>";
                 echo "</tr>";
                 }

@@ -25,12 +25,12 @@ array(
 <script type='text/javascript' src="<?php echo MYQUIZ_URL.'assets/js/jquery-3.3.1.min.js'; ?>"></script>
 <script type='text/javascript' src="<?php echo MYQUIZ_URL.'assets/js/bootstrap.min.js'; ?>"></script>
 <script type='text/javascript' src="<?php echo MYQUIZ_URL.'assets/js/jquery.validate.min.js'; ?>"></script>
-<script>
+<!--<script>
 $().ready(function() {
 		// validate the comment form when it is submitted
 		$("#addquiz").validate();
             }
-</script>
+</script>-->
 
 <div class="wrap">
     <h2>Add New Quiz</h2>
