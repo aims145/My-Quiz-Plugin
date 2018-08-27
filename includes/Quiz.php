@@ -10,22 +10,12 @@ $url = admin_url();
 $table_name = $wpdb->prefix.MYTABLE;
 $table_data = $wpdb->get_results("select * from $table_name");
 
-if($_POST["action"]){
-    $action = $_POST["action"];
-    $quizid = $_POST["quizid"];
-    print_r($quizid);
-    die();
-    if($action == 'delete'){
-        $sql = "delete from $table_name where quiz_id='".$quizid."'";
-        require_once( ABSPATH . 'wp-admin/includes/upgrade.php' );
-        dbDelta( $sql );
-    }
-}
 
 ?>
 <link rel="stylesheet" href="<?php echo MYQUIZ_URL.'assets/css/bootstrap.min.css'; ?>" />
 <script type='text/javascript' src="<?php echo MYQUIZ_URL.'assets/js/jquery-3.3.1.min.js'; ?>"></script>
 <script type='text/javascript' src="<?php echo MYQUIZ_URL.'assets/js/bootstrap.min.js'; ?>"></script>
+
 
 <div class="wrap">
     <h2>My Quizzes</h2>
@@ -95,7 +85,7 @@ if($_POST["action"]){
       <!-- Modal Header -->
       <div class="modal-header">
         <h4 class="modal-title">Edit Quiz</h4>
-        <button type="button" class="close" data-dismiss="modal">&times;</button>
+        <button type="button" class="close" id="closeedit" data-dismiss="modal">&times;</button>
       </div>
 
       <!-- Modal body -->
@@ -114,13 +104,14 @@ if($_POST["action"]){
 
             <div class="form-group row">
             <label for="quizdescription" class="col-sm-3 col-form-label">Description</label>
-            <div class="col-sm-9">
+            <div class="col-sm-9 editedesc">
                 <?php    
                         $editor_id = 'quizdescription';
                         //$uploaded_csv = get_post_meta( $post->ID, 'custom_editor_box', true);
                         $settings = array(
                             'editor_height' => 200, // In pixels, takes precedence and has no default value
                             'textarea_rows' => 10,  // Has no visible effect if editor_height is set, default is 20
+                            'teeny' => TRUE
                         );
                         $boxcontent = '';
                         wp_editor( $boxcontent, $editor_id, $settings );
@@ -160,7 +151,7 @@ if($_POST["action"]){
 
       <!-- Modal footer -->
       <div class="modal-footer">
-        <button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
+        <button type="button" class="btn btn-danger" id="closeedit" data-dismiss="modal" >Close</button>
       </div>
 
     </div>

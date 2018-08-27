@@ -117,16 +117,34 @@ $(document).on("click", "#editonerow", function () {
         var quiz_name = obj[0]["quiz_name"];
         var quiz_description = obj[0]["quiz_description"];
         document.getElementById("quizname").value = quiz_name;
-        //document.getElementById("quizdescription").innerHTML = quiz_description;
-        document.getElementsByClassName("quizdescription").innerHTML = quiz_description;
+        var quizdesc = document.getElementById("quizdescription");
+        quizdesc.setAttribute("aria-hidden","true");
+        quizdesc.innerHTML = quiz_description;
+        
+        //document.getElementById("editedesc").innerHTML = phpcode;    
         
     });
      
 });
 
-//deleteonerow.addEventListener('click', 
-//function(){
-//    var quiz_id = deleteonerow.value;
-//    console.log(quiz_id);
-//}
-//);
+$('#closeedit').on('click', function () {
+    location.reload();
+});
+
+//----------------- Select All questions  --------------------//
+$(document).on("click", "#selectallquestion", function (){
+    $("#selectallquestion").prop('checked', true);
+    var allcheckbox = document.getElementsByClassName("question-id");
+    var checkboxcount = allcheckbox.length;
+    console.log(allcheckbox);
+    var i;
+    for( i=0; i<checkboxcount; i++ ){
+        if(allcheckbox[i].checked == true){
+            allcheckbox[i].checked = false;
+        }else{
+            allcheckbox[i].checked = true;
+        }
+        
+    }
+    
+});
