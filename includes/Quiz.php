@@ -37,7 +37,10 @@ $table_data = $wpdb->get_results("select * from $table_name");
     <h1 class="wp-heading-inline">Quiz</h1>
     <a href="<?php echo $url."admin.php?page=myquiz_addquiz"?>" class="page-title-action">Add New Quiz</a>
     <hr>
-     <?php 
+<?php
+if(count($table_data) > 0){
+    
+
     if(isset($alert) and $state == "success"){
         echo "<p class='alert alert-success'>$alert</p>";
     }
@@ -183,7 +186,13 @@ $table_data = $wpdb->get_results("select * from $table_name");
 
     </div>
   </div>
-</div>   
+</div>
+<?php 
+}
+else{
+    echo "<p class='notice notice-error'>No Quiz to be displayed .....!</p>";
+}
+?>
 </div>
 
 

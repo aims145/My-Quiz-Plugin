@@ -60,6 +60,7 @@ $table_data = $wpdb->get_results("select * from $table_name");
 <h1 class="wp-heading-inline">Add New Quiz</h1>
 <hr class="wp-header-end">
 <?php
+ if(count($table_data) > 0) {
         if(isset($_POST["questionform"])){
             if($insertstatus == true){?>
                       <p class='alert alert-success'>Question Created Successfully</p>
@@ -222,5 +223,10 @@ $table_data = $wpdb->get_results("select * from $table_name");
         </div>
     </div>
 </form>    
-</div>    
+</div>
+ <?php }
+ else{
+     echo "<p class='notice notice-error'>Please create quiz first .........!</p>";
+ }
+ ?>                 
 </div>

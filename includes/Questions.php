@@ -11,7 +11,16 @@ $table_quiz = $wpdb->prefix.MYTABLE;
 $table_ques = $wpdb->prefix.MYQUESTIONS;
 
 if($_POST["deletebulkquestion"] and !empty($_POST["deleteselectedquestions"])){
-    $allids = implode(",", $_POST["allids"]);
+    //echo count($_POST["allids"]);
+    $bothids = $_POST["allids"];
+    $countallid = count($bothids);
+    $allids = array();
+    for( $i=0; $i<$countallid; $i++ ){
+        $singleid = explode("=", $bothids[$i]);
+        array_push($allids, $singleid[0]);
+        $wpdb->query("update $table_quiz set quiz_addedquestions = quiz_addedquestions - 1 where quiz_id='".$singleid[1]."'");
+    }
+    $allids = implode(",", $allids);
     $sql = "DELETE from $table_ques WHERE question_id IN ($allids)";
     if($wpdb->query($sql)){
         $alert = "All Selected Questions Deleted Successfully";
@@ -23,7 +32,11 @@ if($_POST["deletebulkquestion"] and !empty($_POST["deleteselectedquestions"])){
 }
 
 if(isset($_POST["deletequestion"])){
-    $questionid = $_POST["deletequestion"];
+    $bothid = explode("=", $_POST["deletequestion"]);
+    
+    $questionid = $bothid[0]; 
+    $quiz_id = $bothid[1];
+    $wpdb->query("update $table_quiz set quiz_addedquestions = 	quiz_addedquestions - 1 where quiz_id='".$quiz_id."'");
     $sql = "delete from $table_ques where question_id='".$questionid."'";
     if($wpdb->query($sql)){
         $alert = "Questions Deleted Successfully";
@@ -76,7 +89,7 @@ $table_data = $wpdb->get_results($sql);
         <table class="table table-hover">
             <thead class="thead-dark">
                 <tr>
-                    <th><input class="form-control " id="selectallquestion" type="checkbox"  ></th>
+                    <th><input class="form-control question-id" id="selectallquestion" type="checkbox"  ></th>
                     <th>Question ID</th>
                     <th>Question</th>
                     <th>Associated Quiz Name</th>
@@ -88,14 +101,14 @@ $table_data = $wpdb->get_results($sql);
                 <?php 
                 foreach ( $table_data as $row ){
                 echo "<tr>";
-                echo "<td><input class='form-control question-id' type='checkbox' name='allids[]' value='".$row->question_id."' ></td>";
+                echo "<td><input class='form-control question-id' type='checkbox' name='allids[]' value='".$row->question_id."=".$row->quiz_id."' ></td>";
                 echo "<td>".$row->question_id."</td>";
                 echo "<td style='width: 375px;'>".substr($row->question, 0, 100)."</td>";
                 echo "<td>".$row->quiz_name."</td>";
                 echo "<td>".$row->timestamp."</td>";
                 echo "<td>";
                 echo "<button class='btn btn-primary btn-sm' data-id='".$row->question_id."' data-toggle='modal' data-target='#editques' id='editonerow' >Edit</button> "
-                         ."<button class='btn btn-danger btn-sm' type='submit' value='".$row->question_id."' name='deletequestion' >Delete</button>";
+                         ."<button class='btn btn-danger btn-sm' type='submit' value='".$row->question_id."=".$row->quiz_id."' name='deletequestion' >Delete</button>";
                 echo "</td>";
                 echo "</tr>";
                 }
@@ -103,7 +116,7 @@ $table_data = $wpdb->get_results($sql);
             </tbody>
             <tfoot class="thead-dark">
                 <tr>
-                    <th><input class="form-control" id="selectallquestion" type="checkbox"  ></th>
+                    <th><input class="form-control question-id" id="selectallquestion" type="checkbox"  ></th>
                     <th>Question ID</th>
                     <th>Question</th>
                     <th>Associated Quiz Name</th>

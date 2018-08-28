@@ -133,37 +133,52 @@ $('#closeedit').on('click', function () {
 
 //----------------- Select All questions  --------------------//
 $(document).on("click", "#selectallquestion", function (){
-    $("#selectallquestion").prop('checked', true);
+    var selectallcheckbox = document.getElementById("selectallquestion");
     var allcheckbox = document.getElementsByClassName("question-id");
     var checkboxcount = allcheckbox.length;
-    console.log(allcheckbox);
     var i;
-    for( i=0; i<checkboxcount; i++ ){
-        if(allcheckbox[i].checked == true){
-            allcheckbox[i].checked = false;
-        }else{
-            allcheckbox[i].checked = true;
+    if( selectallcheckbox.checked === true ){
+        for( i=0; i<checkboxcount; i++ ){
+           allcheckbox[i].checked = true;
         }
-        
+    }else{
+        for( i=0; i<checkboxcount; i++ ){
+           allcheckbox[i].checked = false;
+        }
     }
+    
+//    var i;
+//    if( selectallcheckbox.checked === true ){
+//        for( i=0; i<checkboxcount; i++ ){
+//           allcheckbox[i].checked = true;
+//        }
+//    }
+//    else{
+//        for( i=0; i<checkboxcount; i++ ){
+//           allcheckbox[i].checked = false;
+//        }
+//    }
     
 });
 
 
 //----------------- Select All quiz  --------------------//
 $(document).on("click", "#selectallquiz", function (){
-    $("#selectallquiz").prop('checked', true);
+
+    var selectallcheckbox = document.getElementById("selectallquiz");
     var allcheckbox = document.getElementsByClassName("quiz-id");
     var checkboxcount = allcheckbox.length;
-    console.log(allcheckbox);
     var i;
-    for( i=0; i<checkboxcount; i++ ){
-        if(allcheckbox[i].checked == true){
-            allcheckbox[i].checked = false;
-        }else{
-            allcheckbox[i].checked = true;
+    if( selectallcheckbox.checked === true ){
+        for( i=0; i<checkboxcount; i++ ){
+           allcheckbox[i].checked = true;
         }
-        
     }
+    else{
+        for( i=0; i<checkboxcount; i++ ){
+           allcheckbox[i].checked = false;
+        }
+    }
+
     
 });
