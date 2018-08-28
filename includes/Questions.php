@@ -81,7 +81,7 @@ $table_data = $wpdb->get_results($sql);
                     <th>Question</th>
                     <th>Associated Quiz Name</th>
                     <th>Date</th>
-                    <th>Action</th>
+                    <th style="width: 130px;">Action</th>
                 </tr>
             </thead>
             <tbody>

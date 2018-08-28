@@ -68,7 +68,7 @@ $table_data = $wpdb->get_results("select * from $table_name");
                     <th>Quiz Short Code</th>
                     <th>Number of Questions</th>
                     <th>Date</th>
-                    <th>Action</th>
+                    <th style="width: 130px;">Action</th>
                 </tr>
             </thead>
             <tbody>
@@ -78,7 +78,7 @@ $table_data = $wpdb->get_results("select * from $table_name");
                     echo "<td><input class='form-control quiz-id' type='checkbox' name='allids[]' value='".$row->quiz_id."' ></td>";
                     echo "<td>".$row->quiz_id."</td>";
                     echo "<td>".$row->quiz_name."</td>";
-                    echo "<td></td>";
+                    echo "<td>".$row->quiz_shortcode."</td>";
                     echo "<td>".$row->quiz_addedquestions."</td>";
                     echo "<td>".$row->Date."</td>";
                     echo "<td>";

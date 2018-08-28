@@ -17,8 +17,13 @@ array(
     'quiz_name' => $quizname,
     'quiz_description' => stripslashes($quizdescription)
 ));
+$last_id = $wpdb->insert_id;
+$sql = "update $table_name set quiz_shortcode='quiz-".$last_id."' where quiz_id='".$last_id."'";
+$wpdb->query("$sql");
+//die($sql);
 
 }
+
 
     ?>
 <link rel="stylesheet" href="<?php echo MYQUIZ_URL.'assets/css/bootstrap.min.css'; ?>" />
