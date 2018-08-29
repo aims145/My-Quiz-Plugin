@@ -137,11 +137,13 @@ $('#closeedit').on('click', function () {
 
 
 //----------------------------------- Edit Single Question ---------------------------//
-$(document).on("click", "#editonequestion", function () {
+$(document).on("click", "#editonequestions", function () {
     var questionid = $(this).data('id');
     var parameters = "action=edit_question&questionid="+questionid;
     $.post(admin_ajax,parameters,function(response){
         console.log(response);
+        var obj = $.parseJSON(response);
+        console.log(obj[0]["question_id"])
     });
 });
 

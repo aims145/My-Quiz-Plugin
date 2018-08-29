@@ -1,3 +1,6 @@
+<link rel="stylesheet" href="<?php echo MYQUIZ_URL.'assets/css/bootstrap.min.css'; ?>" />
+<script type='text/javascript' src="<?php echo MYQUIZ_URL.'assets/js/jquery-3.3.1.min.js'; ?>"></script>
+<script type='text/javascript' src="<?php echo MYQUIZ_URL.'assets/js/bootstrap.min.js'; ?>"></script>
 <?php
 
 /* 
@@ -47,16 +50,24 @@ if(isset($_POST["deletequestion"])){
     }
 }
 
+/**
+* Description - Edit Question code 
+*
+*
+*
+*/
+if(isset($_POST["editonequestion"]) and !empty($_POST["editonequestion"])){
 
+    include_once MYQUIZ_DIR.'/includes/editquestion.php';
+
+}else{
 
 $sql = "select * from $table_ques left join $table_quiz on ( $table_ques.quiz_id = $table_quiz.quiz_id )";
 $table_data = $wpdb->get_results($sql);
 
 
 ?>
-<link rel="stylesheet" href="<?php echo MYQUIZ_URL.'assets/css/bootstrap.min.css'; ?>" />
-<script type='text/javascript' src="<?php echo MYQUIZ_URL.'assets/js/jquery-3.3.1.min.js'; ?>"></script>
-<script type='text/javascript' src="<?php echo MYQUIZ_URL.'assets/js/bootstrap.min.js'; ?>"></script>
+
 
 
 <div class="wrap">
@@ -107,8 +118,8 @@ $table_data = $wpdb->get_results($sql);
                 echo "<td>".$row->quiz_name."</td>";
                 echo "<td>".$row->timestamp."</td>";
                 echo "<td>";
-                echo "<a class='button action' data-id='".$row->question_id."' id='editonequestion' >Edit</a> "
-                         ."<a class='button action' type='submit' value='".$row->question_id."=".$row->quiz_id."' name='deletequestion' >Delete</a>";
+                echo "<button class='button action' type='submit' value='".$row->question_id."=".$row->quiz_id."' name='editonequestion' >Edit</a> "
+                         ."<button class='button action' type='submit' value='".$row->question_id."=".$row->quiz_id."' name='deletequestion' >Delete</a>";
                 echo "</td>";
                 echo "</tr>";
                 }
@@ -131,5 +142,6 @@ $table_data = $wpdb->get_results($sql);
    </form>
 </div>
 
-
-
+<?php     
+}
+?>
