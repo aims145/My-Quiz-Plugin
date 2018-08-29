@@ -109,7 +109,9 @@ $(document).on("click", "#deleteonerow", function () {
 
 });
 
-$(document).on("click", "#editonerow", function () {
+
+// ------------------------------------- Edit Single quiz -----------------//
+$(document).on("click", "#editonequiz", function () {
     var quizid = $(this).data('id');
     var parameters = "action=edit_quiz&quizid="+quizid;
     $.post(admin_ajax,parameters,function(response){
@@ -120,6 +122,8 @@ $(document).on("click", "#editonerow", function () {
         var quizdesc = document.getElementById("quizdescription");
         quizdesc.setAttribute("aria-hidden","true");
         quizdesc.innerHTML = quiz_description;
+        document.getElementById("editquiz").style.display = "block";
+        document.getElementById("hiddenquizid").value = quizid;
         
         //document.getElementById("editedesc").innerHTML = phpcode;    
         
@@ -128,8 +132,20 @@ $(document).on("click", "#editonerow", function () {
 });
 
 $('#closeedit').on('click', function () {
-    location.reload();
+    document.getElementById("editquiz").style.display = "none";
 });
+
+
+//----------------------------------- Edit Single Question ---------------------------//
+$(document).on("click", "#editonequestion", function () {
+    var questionid = $(this).data('id');
+    var parameters = "action=edit_question&questionid="+questionid;
+    $.post(admin_ajax,parameters,function(response){
+        console.log(response);
+    });
+});
+
+
 
 //----------------- Select All questions  --------------------//
 $(document).on("click", "#selectallquestion", function (){

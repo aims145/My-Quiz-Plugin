@@ -22,6 +22,22 @@ if($_POST["deletebulkquiz"] and !empty($_POST["selecteddeletequiz"])){
     }
 }
 
+if($_POST["submiteditquiz"] and !empty($_POST["quizname"])){
+    $quizid = $_POST["quizid"];
+    $quizname = $_POST["quizname"];
+    $quizdesc = $_POST["quizdescription"];
+    $sql = "update $table_name set quiz_name='".$quizname."', quiz_description='".$quizdesc."' where quiz_id='".$quizid."'";
+    if($wpdb->query($sql)){
+        $alert = "Quiz updated Successfully";
+        $state = "success";
+    }else{
+        $alert = "Error: ".$wpdb->last_error;
+        $state = "danger";
+    }
+    
+}
+
+
 $table_data = $wpdb->get_results("select * from $table_name");
 
 
@@ -62,8 +78,8 @@ if(count($table_data) > 0){
         
     </div>
     <div class="table-responsive mt-4">
-        <table class="table table-hover">
-            <thead class="thead-dark">  
+        <table class="table table-striped table-bordered">
+            <thead >  
                 <tr>
                     <th><input class="form-control quiz-id"  type="checkbox" id="selectallquiz"  ></th>
                     <th>Quiz ID</th>
@@ -71,7 +87,7 @@ if(count($table_data) > 0){
                     <th>Quiz Short Code</th>
                     <th>Number of Questions</th>
                     <th>Date</th>
-                    <th style="width: 130px;">Action</th>
+                    <th style="width: 135px;">Action</th>
                 </tr>
             </thead>
             <tbody>
@@ -85,14 +101,14 @@ if(count($table_data) > 0){
                     echo "<td>".$row->quiz_addedquestions."</td>";
                     echo "<td>".$row->Date."</td>";
                     echo "<td>";
-                    echo "<button class='btn btn-primary btn-sm' data-id='".$row->quiz_id."' data-toggle='modal' data-target='#editquiz' id='editonerow' >Edit</button> "
-                         ."<button class='btn btn-danger btn-sm' data-id='".$row->quiz_id."' id='deleteonerow' >Delete</button>";
+                    echo "<a class='button action' data-id='".$row->quiz_id."'  id='editonequiz' >Edit</a> "
+                         ."<a class='button action' data-id='".$row->quiz_id."' id='deleteonerow' >Delete</a>";
                     echo "</tr>";
                 }
                 
                 ?>
             </tbody>
-            <tfoot class="thead-dark">
+            <tfoot >
                 <tr>
                     <th><input class="form-control quiz-id" type="checkbox" id="selectallquiz"></th>
                     <th>Quiz ID</th>
@@ -115,7 +131,7 @@ if(count($table_data) > 0){
       <!-- Modal Header -->
       <div class="modal-header">
         <h4 class="modal-title">Edit Quiz</h4>
-        <button type="button" class="close" id="closeedit" data-dismiss="modal">&times;</button>
+        <button type="button" class="close" id="closeedit" >&times;</button>
       </div>
 
       <!-- Modal body -->
@@ -129,6 +145,7 @@ if(count($table_data) > 0){
             <label for="quizname" class="col-sm-3 col-form-label">Quiz Name</label>
             <div class="col-sm-9">
                 <input name="quizname" type="text" class="form-control" id="quizname" placeholder="Enter your Question">
+                <input name="quizid" type="hidden" id="hiddenquizid">
             </div>
             </div>
 
@@ -152,38 +169,11 @@ if(count($table_data) > 0){
             <div class="form-group row">
                 <div class="col-sm-3"></div>
             <div class="col-sm-9">
-                <input type="submit" name="submitaddquiz" class="button button-primary" value="Submit">
+                <input type="submit" name="submiteditquiz" class="button button-primary" value="Submit">
             </div>
             </div>
-                <div class="row">    
-                    <div class="col-sm-3"></div>
-                    <div class="col-sm-9">
-                <?php
-                if(isset($_POST["submitaddquiz"])){
-                    if($insertstatus == true){?>
-                              <p class='alert alert-success'>Quiz Created Successfully</p>
-                    <?php          
-                    }
-                    else{
-                        ?>
-                         <p class='alert alert-danger'><?php echo $wpdb->last_error;?></p>
-                         <?php
-                    }
-
-
-                }
-
-                ?>
-                    </div>    
-                </div>
             </form>
       </div>
-
-      <!-- Modal footer -->
-      <div class="modal-footer">
-        <button type="button" class="btn btn-danger" id="closeedit" data-dismiss="modal" >Close</button>
-      </div>
-
     </div>
   </div>
 </div>
@@ -194,6 +184,3 @@ else{
 }
 ?>
 </div>
-
-
-

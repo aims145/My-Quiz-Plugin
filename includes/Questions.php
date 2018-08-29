@@ -86,15 +86,15 @@ $table_data = $wpdb->get_results($sql);
         
     </div>
     <div class="table-responsive mt-4">
-        <table class="table table-hover">
-            <thead class="thead-dark">
+        <table class="table table-striped table-bordered">
+            <thead class="">
                 <tr>
                     <th><input class="form-control question-id" id="selectallquestion" type="checkbox"  ></th>
                     <th>Question ID</th>
                     <th>Question</th>
                     <th>Associated Quiz Name</th>
                     <th>Date</th>
-                    <th style="width: 130px;">Action</th>
+                    <th style="width: 135px;">Action</th>
                 </tr>
             </thead>
             <tbody>
@@ -107,14 +107,14 @@ $table_data = $wpdb->get_results($sql);
                 echo "<td>".$row->quiz_name."</td>";
                 echo "<td>".$row->timestamp."</td>";
                 echo "<td>";
-                echo "<button class='btn btn-primary btn-sm' data-id='".$row->question_id."' data-toggle='modal' data-target='#editques' id='editonerow' >Edit</button> "
-                         ."<button class='btn btn-danger btn-sm' type='submit' value='".$row->question_id."=".$row->quiz_id."' name='deletequestion' >Delete</button>";
+                echo "<a class='button action' data-id='".$row->question_id."' id='editonequestion' >Edit</a> "
+                         ."<a class='button action' type='submit' value='".$row->question_id."=".$row->quiz_id."' name='deletequestion' >Delete</a>";
                 echo "</td>";
                 echo "</tr>";
                 }
                 ?>
             </tbody>
-            <tfoot class="thead-dark">
+            <tfoot class="">
                 <tr>
                     <th><input class="form-control question-id" id="selectallquestion" type="checkbox"  ></th>
                     <th>Question ID</th>
