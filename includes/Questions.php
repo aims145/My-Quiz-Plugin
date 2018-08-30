@@ -127,7 +127,10 @@ $table_data = $wpdb->get_results($sql);
     elseif(isset($alert) and $state == "danger") {
             echo "<p class='alert alert-danger'>$alert</p>";
     }
+    
+if(count($table_data) > 0 ){    
     ?>
+    
     <form action="" method="post" name="bulk-action">
     <div class="row">
         
@@ -186,8 +189,14 @@ $table_data = $wpdb->get_results($sql);
         <p id="quizalert" ></p>
     </div>
    </form>
+<?php }
+else{
+    echo "<p class='notice notice-error'>Add a question first .....!</p>";
+} 
+?>
 </div>
 
-<?php     
+<?php
+
 }
 ?>

@@ -110,10 +110,10 @@ for($i=0;$i<$numberofoptions;$i++){
     echo "<div class='col-sm-3'>
             <label class='radiolabel'>";
         if(in_array(($i+1), $correctanswer)){
-        echo "<input class='form-control options' type='".$type."' name='correntanswer[]' value='1' id='option".($i+1)."' onclick='checkmultichoice(this);' checked>";
+        echo "<input class='form-control options' type='".$type."' name='correntanswer[]' value='".($i+1)."' id='option".($i+1)."' onclick='checkmultichoice(this);' checked>";
         }
         else{
-        echo "<input class='form-control options' type='".$type."' name='correntanswer[]' value='1' id='option".($i+1)."' onclick='checkmultichoice(this);'>";    
+        echo "<input class='form-control options' type='".$type."' name='correntanswer[]' value='".($i+1)."' id='option".($i+1)."' onclick='checkmultichoice(this);'>";    
         }
         
     
@@ -150,7 +150,8 @@ for($i=0;$i<$numberofoptions;$i++){
 
 </div>    
     <div class="row">
-        <div class="col-sm-2"><input type="hidden" name="optionscount" id="optionscount" value="<?php echo $numberofoptions;?>">
+        <div class="col-sm-2">
+            <input type="hidden" name="optionscount" id="optionscount" value="<?php echo $numberofoptions;?>">
             <input type="hidden" name="question_id" value="<?php echo $questionid;?>"  
         </div>
         <div class="col-sm-2 mt-4">

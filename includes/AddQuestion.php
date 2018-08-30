@@ -33,13 +33,13 @@ if($_POST["questionform"]){
     
     $data = array(
             'quiz_id' => $quiz_id,
-            'question' => $question,
+            'question' => stripslashes($question),
             'multichoice' => $multichoice,
             'answerallowed' => $answerallowed,
             'options' => $alloptions_json,
             'numberofoptions' => $optionscount,
             'correctanswer' => $correctanswer,
-            'answerdescription' => $answerdesc
+            'answerdescription' => stripslashes($answerdesc)
             );
 
     $table_name = $wpdb->prefix.MYQUESTIONS;

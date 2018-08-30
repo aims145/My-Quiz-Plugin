@@ -21,6 +21,7 @@ function multichoiceno(){
     
     var getoptions = document.getElementsByClassName("options");
     var i;
+    document.getElementById("numbersofanswer").selectedIndex = 0;
     for( i=0; i<getoptions.length; i++ ){
         getoptions[i].setAttribute("type","radio");
         getoptions[i].setAttribute("onclick","checkmultichoice(this);");
@@ -61,8 +62,12 @@ function checkmultichoice(current){
 
 function addmoreoption(){
     var alloptions = document.getElementById("alloptions");
+     
+    
     var numberofoptionsnow = alloptions.childElementCount;
     if(numberofoptionsnow < 6){
+    var optioncountvals = document.getElementById("optionscount");
+    optioncountvals.value = +optioncountvals.value + 1;
     var inputEle = document.createElement("div");
     inputEle.setAttribute("class", "form-group row");
     if(document.getElementById("radiobuttonforyes").checked === true){

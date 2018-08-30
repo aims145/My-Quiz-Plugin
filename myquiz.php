@@ -12,16 +12,9 @@ define('MYQUIZ_DIR', plugin_dir_path(__FILE__));
 define('MYQUIZ_URL', plugin_dir_url(__FILE__));
 define('MYTABLE', "my_quiz");
 define('MYQUESTIONS', "my_quiz_questions");
-//function add_css_to_head(){
-//    $cssurl1 = MYQUIZ_URL.'assets/css/myquiz.css';
-//    print "<link rel='stylesheet' href='".$cssurl1."'>";
-//}
-//    add_action('admin_head', 'add_css_to_head');
-//function add_js_to_footer(){
-//    $jsurl1 = MYQUIZ_URL.'assets/js/myquiz.js';
-//    print "<script type='text/javascript' src='".$jsurl1."'></script>";
-//}
-//    add_action('admin_footer', 'add_js_to_footer');
+
+
+//--------------------------------------- Creating Backend ------------------------------------------//
 
 function myquiz_add_menu_option(){
     add_menu_page(
@@ -163,7 +156,9 @@ function myquiz_addquestion(){
     include_once MYQUIZ_DIR.'/includes/AddQuestion.php';
 }
 
-//include_once MYQUIZ_DIR.'/includes/wp-list-table-quiz.php';
+
+
+// ------------------------------- Creating Quiz Layout -----------------------------//
 
 
 
