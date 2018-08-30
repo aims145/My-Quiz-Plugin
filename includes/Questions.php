@@ -51,6 +51,52 @@ if(isset($_POST["deletequestion"])){
 }
 
 /**
+* Description - Submit edit form 
+*
+*
+*/
+
+if(!empty($_POST["editquestionform"]) and isset($_POST["editquestionform"])){
+
+    $optionscount = $_POST["optionscount"];
+    $question_id = $_POST["question_id"];
+    $alloptions = array();
+    for( $i=1; $i<=$optionscount; $i++ ){
+        $option = $_POST["option".$i];
+        array_push($alloptions, $option);
+    }
+    $alloptions_json = json_encode($alloptions);
+    
+    // Send multichoice status as boolean
+    $multichoicestatus = $_POST["multichoice"];
+    
+    if( $multichoicestatus == 'yes' ){
+        $multichoice = true;
+    }
+    else{
+        $multichoice = false;
+    }
+    $quiz_id = $_POST["quizid"];
+    $question = $_POST["question"];
+    $answerallowed = $_POST["numbersofanswer"];
+    $correctanswer = implode(',', $_POST["correntanswer"]);
+    $answerdesc = $_POST["answer_description"];
+    $sql = "update $table_ques set question='".$question."', multichoice='".$multichoice."', "
+            . "answerallowed='".$answerallowed."', options='".$alloptions_json."', numberofoptions='".$optionscount."'"
+            . ", correctanswer='".$correctanswer."', answerdescription='".$answerdesc."', quiz_id='".$quiz_id."' where question_id='".$question_id."'";
+    
+    $updatestatus = $wpdb->query($sql);
+    if($updatestatus){
+        $alert = "Questions Edited Successfully";
+        $state = "success";
+    }else{
+        $alert = "Error: ".$wpdb->last_error;
+        $state = "danger";
+    }
+}
+
+
+/**
 * Description - Edit Question code 
 *
 *
@@ -58,7 +104,7 @@ if(isset($_POST["deletequestion"])){
 */
 if(isset($_POST["editonequestion"]) and !empty($_POST["editonequestion"])){
 
-    include_once MYQUIZ_DIR.'/includes/editquestion.php';
+    include_once MYQUIZ_DIR.'/includes/Editquestion.php';
 
 }else{
 
@@ -118,7 +164,7 @@ $table_data = $wpdb->get_results($sql);
                 echo "<td>".$row->quiz_name."</td>";
                 echo "<td>".$row->timestamp."</td>";
                 echo "<td>";
-                echo "<button class='button action' type='submit' value='".$row->question_id."=".$row->quiz_id."' name='editonequestion' >Edit</a> "
+                echo "<button class='button action' type='submit' style='margin-right:5px;' value='".$row->question_id."=".$row->quiz_id."' name='editonequestion' >Edit</a> "
                          ."<button class='button action' type='submit' value='".$row->question_id."=".$row->quiz_id."' name='deletequestion' >Delete</a>";
                 echo "</td>";
                 echo "</tr>";

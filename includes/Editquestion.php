@@ -10,23 +10,28 @@ $quesdata = $wpdb->get_results($sql);
 
 $sql = "select quiz_id from $table_quiz";
 $quiz_data = $wpdb->get_results($sql);
-echo "<pre>";
-var_dump($quesdata);
+//var_dump($quesdata);
 $choice = $quesdata[0]->multichoice;
 $multichoiceyes = "";
-$multichoiceno = "";        
-echo "</pre>";
+$multichoiceno = "";
+$numberofoptions = $quesdata[0]->numberofoptions;
+$answerallowed = $quesdata[0]->answerallowed;
+$correctanswer = explode(",", $quesdata[0]->correctanswer);
+
 if( $choice == 0 ){
     $multichoiceno = "checked";
+    $type = "radio";
 }else{
     $multichoiceyes = "checked";
+    $type = "checkbox";
 }
+$option = json_decode($quesdata[0]->options);
 ?>
 <div class="wrap">
 <h1 class="wp-heading-inline">Edit Question</h1>
 <hr class="wp-header-end">
 <div class="myquizform">
-    <form method="post" action="" name="addquestion">
+    <form method="post" action="" name="editquestion">
         
 <div class="form-group row" id="listallquiz">
     <div class="col-sm-2">Select Quiz ID</div>
@@ -76,14 +81,14 @@ if( $choice == 0 ){
     </div>
 </div>       
 
-<div class="form-group row" id="allowedmultichoice">
+<div class="form-group row" id="allowedmultichoiceoneditquestion">
     <div class="col-sm-2">Allowed Selectable Options</div>
     <div class="col-sm-6">
         <select class="selectpicker" name="numbersofanswer" id="numbersofanswer" >
-            <option value="1" selected>1</option>
-            <option value="2">2</option>
-            <option value="3">3</option>
-            <option value="4">4</option>
+            <option value="1" <?php if($answerallowed == '1'){echo "selected";}?> >1</option>
+            <option value="2" <?php if($answerallowed == '2'){echo "selected";}?> >2</option>
+            <option value="3" <?php if($answerallowed == '3'){echo "selected";}?> >3</option>
+            <option value="4" <?php if($answerallowed == '4'){echo "selected";}?> >4</option>
         </select>
 </div>
     <div class="col-sm-3"></div>
@@ -96,50 +101,28 @@ if( $choice == 0 ){
     <div class="col-sm-3">Select Correct Option</div>
 </div>
 <div class="alloptions" id="alloptions">
-<div class="form-group row">
-    <div class="col-sm-2">Option 1</div>
-    <div class="col-sm-6"><input class="form-control" type="text" name="option1" placeholder="Option 1"></div>
-    <div class="col-sm-3">
-        <label class="radiolabel">
-            <input class="form-control options" type="radio" name="correntanswer[]" value="1" id="option1" onclick="checkmultichoice(this);" >
-            <span class="checkmark"></span>
-        </label>
-    </div>
-</div>    
-    
-<div class="form-group row">
-    <div class="col-sm-2">Option 2</div>
-    <div class="col-sm-6"><input class="form-control" type="text" name="option2" placeholder="Option 2"></div>
-    <div class="col-sm-3">
-        <label class="radiolabel">
-            <input class="form-control options" type="radio" name="correntanswer[]" value="2" onclick="checkmultichoice(this);">
-            <span class="checkmark"></span>
-        </label>
-    </div>
-</div> 
-    
-<div class="form-group row">
-    <div class="col-sm-2">Option 3</div>
-    <div class="col-sm-6"><input class="form-control" type="text" name="option3" placeholder="Option 3"></div>
-    <div class="col-sm-3">
-        <label class="radiolabel">
-            <input class="form-control options" type="radio" name="correntanswer[]" value="3" onclick="checkmultichoice(this);">
-            <span class="checkmark"></span>
-        </label>
-    </div>
-</div> 
+<?php 
 
-
-<div class="form-group row">
-    <div class="col-sm-2">Option 4</div>
-    <div class="col-sm-6"><input class="form-control" type="text" name="option4" placeholder="Option 4"></div>
-    <div class="col-sm-3">
-        <label class="radiolabel">
-            <input class="form-control options" type="radio" name="correntanswer[]" value="4" onclick="checkmultichoice(this);">
-            <span class="checkmark"></span>
-        </label>
-    </div>
-</div>
+for($i=0;$i<$numberofoptions;$i++){
+    echo "<div class='form-group row'>";
+    echo "<div class='col-sm-2'>Option ".($i+1)."</div>";
+    echo "<div class='col-sm-6'><input class='form-control' type='text' name='option".($i+1)."' value='".$option[$i]."' placeholder='Option ".($i+1)."'></div>";
+    echo "<div class='col-sm-3'>
+            <label class='radiolabel'>";
+        if(in_array(($i+1), $correctanswer)){
+        echo "<input class='form-control options' type='".$type."' name='correntanswer[]' value='1' id='option".($i+1)."' onclick='checkmultichoice(this);' checked>";
+        }
+        else{
+        echo "<input class='form-control options' type='".$type."' name='correntanswer[]' value='1' id='option".($i+1)."' onclick='checkmultichoice(this);'>";    
+        }
+        
+    
+    echo    "<span class='checkmark'></span>
+            </label>
+         </div>";
+    echo "</div>";
+}
+?>
 </div>
     
 <div class="form-group row">
@@ -151,7 +134,7 @@ if( $choice == 0 ){
 <div class="row">
     <div class="col-sm-2"></div>
     <div class="col-sm-6">
-        <h1 class="wp-heading-inline">Add Answer Description</h1>    
+        <h2 class="wp-heading-inline">Add Answer Description</h2>    
          <?php    
                 $editor_id = 'answer_description';
                 //$uploaded_csv = get_post_meta( $post->ID, 'custom_editor_box', true);
@@ -159,7 +142,7 @@ if( $choice == 0 ){
                     'editor_height' => 200, // In pixels, takes precedence and has no default value
                     'textarea_rows' => 10,  // Has no visible effect if editor_height is set, default is 20
                 );
-                $boxcontent = '';
+                $boxcontent = $quesdata[0]->answerdescription;
                 wp_editor( $boxcontent, $editor_id, $settings );    
             ?>
 
@@ -167,9 +150,11 @@ if( $choice == 0 ){
 
 </div>    
     <div class="row">
-        <div class="col-sm-2"><input type="hidden" name="optionscount" id="optionscount"></div>
+        <div class="col-sm-2"><input type="hidden" name="optionscount" id="optionscount" value="<?php echo $numberofoptions;?>">
+            <input type="hidden" name="question_id" value="<?php echo $questionid;?>"  
+        </div>
         <div class="col-sm-2 mt-4">
-            <input class="button button-primary" type="submit" name="questionform" value="Submit Question">
+            <input class="button button-primary" type="submit" name="editquestionform" value="Update Question">
         </div>
     </div>
 </form>    
