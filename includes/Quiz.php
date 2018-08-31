@@ -181,6 +181,7 @@ if(count($table_data) > 0){
 }
 else{
     echo "<p class='notice notice-error'>No Quiz to be displayed .....!</p>";
+     
 }
 ?>
 </div>

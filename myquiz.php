@@ -160,5 +160,19 @@ function myquiz_addquestion(){
 
 // ------------------------------- Creating Quiz Layout -----------------------------//
 
+$quiztable = $wpdb->prefix.MYTABLE;
+$sql = "select quiz_shortcode from $quiztable";
+$listshortcodes = $wpdb->get_results($sql);
+
+function quiz_view($atts){
+    //return $sample;
+    include_once MYQUIZ_DIR.'/includes/QuizView.php';
+    
+}
+foreach($listshortcodes as $shortcodes){
+    add_shortcode($shortcodes->quiz_shortcode, "quiz_view");    
+}
+
+
 
 
