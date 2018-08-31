@@ -165,7 +165,11 @@ $sql = "select quiz_shortcode from $quiztable";
 $listshortcodes = $wpdb->get_results($sql);
 
 function quiz_view($atts){
+    global $wpdb;
     //return $sample;
+    $params = shortcode_atts( array(
+        'id' => '',
+    ), $atts, '');
     include_once MYQUIZ_DIR.'/includes/QuizView.php';
     
 }

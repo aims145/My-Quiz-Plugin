@@ -16,4 +16,36 @@ and open the template in the editor.
     
 }
 
+.quizcontent{
+    font-family: verdana;
+}
 
+.quizheading{
+    color: #d2c359;
+    padding: 10px;
+    background-color: #6d6b6b;
+    border-bottom: 5px #d2c359 solid;
+}
+.quizdescription{
+    padding: 30px;
+    font-size: 16px;
+}
+.btn-row{
+    margin-bottom: 15px;
+}
+.startquiz-btn{
+    background-color: #d2c359 !important;
+    color: #fff !important;
+    padding: 15px 32px !important;
+    text-align: center !important;
+    text-decoration: none !important;
+    display: inline-block !important;
+    font-size: 16px !important;
+     border: none !important;
+    height: auto !important; 
+}
+
+.startquiz-btn:hover{
+    color: #d2c359 !important;
+    background-color:#6d6b6b !important;
+}
