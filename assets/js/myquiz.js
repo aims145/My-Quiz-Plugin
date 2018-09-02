@@ -205,3 +205,58 @@ $(document).on("click", "#selectallquiz", function (){
 
     
 });
+
+function getCookie(cname) {
+    var name = cname + "=";
+    var ca = document.cookie.split(';');
+    for(var i = 0; i < ca.length; i++) {
+        var c = ca[i];
+        while (c.charAt(0) == ' ') {
+            c = c.substring(1);
+        }
+        if (c.indexOf(name) == 0) {
+            return c.substring(name.length, c.length);
+        }
+    }
+    return "";
+}
+
+$(document).on("click", "#startquiz", function(){
+    var category = document.getElementById("quiz-category").value;
+    if( category === 'awssaa'){
+       document.cookie = "hours=01";
+       document.cookie = "minutes=19";
+       document.cookie = "seconds=60";
+    }
+    
+});
+
+//----------------- Time ---------------------------//
+
+
+
+function quiztimer(){
+    var hours = getCookie("hours");
+    var minutes = getCookie("minutes");
+    var seconds = getCookie("seconds");
+    (function move() {
+            var timer=document.getElementById("timerdiv");
+            seconds -= 01;
+            if(seconds === 0 ){
+                minutes -= 1;
+                seconds = 59;
+                if( minutes === 0 ){
+                    hours -= 1;
+                    minutes = 59;
+                }
+            }
+            timer.innerHTML = "Timer - "+hours+":"+minutes+":"+seconds;
+            document.cookie = "hours="+hours;
+            document.cookie = "minutes="+minutes;
+            document.cookie = "seconds="+seconds;
+            setTimeout(move, 1000);
+
+    })();
+
+}
+
