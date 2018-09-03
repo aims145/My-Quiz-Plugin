@@ -50,7 +50,7 @@ and open the template in the editor.
     background-color:#6d6b6b !important;
 }
 
-.quiz-question{
+.row.quiz-question{
     padding: 10px 45px !important;
     color: #6d6b6b !important;
 }
@@ -61,11 +61,15 @@ and open the template in the editor.
 
 .questionheading{
     background-color: gray;
-    color: white;
+    color: #d2c359 ;
     padding: 15px;
     border-left: 1px #d2c359 solid;
     border-right: 1px #d2c359 solid;
     text-align: center;
+    font-size: 20px;
+}
+.questionheading label{
+    color: #d2c359;
 }
 .questionbody{
     padding: 10px 45px !important;
@@ -75,7 +79,7 @@ and open the template in the editor.
 }
 
 .row.options{
-    padding: 10px 45px !important;
+    padding: 20px 45px !important;
     color: #d2c359;
 }
 .col-sm-2.questiontitle{
@@ -84,16 +88,27 @@ and open the template in the editor.
     text-align: center ;*/
 }
 
-.col-sm-11.option {
+.option div label {
     padding: 2px;
     color: gray;
+    font-weight: bold;
 }
-
-
 
 .row.bottom-margin{
     padding: 10px !important;
 }
+
+.step{
+    display: none;
+}
+
+
+
+
+/* Forms */
+
+
+
 
 /*** Custom Radio and Checkbox css **/
 

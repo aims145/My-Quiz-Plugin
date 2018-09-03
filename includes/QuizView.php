@@ -15,82 +15,95 @@ if(isset($_POST["startquiz"])){
     $questable = $wpdb->prefix.MYQUESTIONS;
     $sql = "select * from $questable where quiz_id='".$params['id']."'";
     $quiz_all_ques = $wpdb->get_results($sql);
+   
     ?>
 <div class="question-content">
+    <form action="" method="post" id="regForm">
     <div class="quizheading"><h1 class="text-center"><?php echo $quizname;?></h1></div>
-    <div class="quiz-question row">
-        <div class="col-sm-3 questionheading"><h4><?php echo "Total Questions - ".count($quiz_all_ques); ?></h4></div>
-        <div class="col-sm-3 questionheading "><h4>Question 1</h4></div>
-        <div class="col-sm-3 questionheading"><h4>
-                <div class="pure-checkbox">
-                    <input id="checkbox1" name="checkbox" type="checkbox" >
-                    <label for="checkbox1">Mark for review</label>
-                </div>
-            </h4>
-        </div>
-        <div class="col-sm-3 questionheading">
-            <h4 id="timerdiv" >Timer -( HH:MM:SS )</h4>
-        </div>
-      
-    </div>
-    <div class="row questionbody">
-        
-        <div class="col-sm-1 questiontitle"><img class="img-rounded" src="<?php echo MYQUIZ_URL.'assets/images/question_mark.png'; ?>" ></div>
-        
-        <div class="col-sm-11 question">There are currently multiple applications hosted in a VPC. During monitoring it has been noticed that multiple port scans are coming in from a specific IP Address block. The internal security team has requested that all offending IP Addresses be denied for the next 24 hours. Which of the following is the best method to quickly and temporarily deny access from the specified IP Address's.
-Please select :</div>
-        
-    </div>
-    <div class="alloptions">
-    <div class="row options">
-        <div class="col-sm-1"></div>
-        <div class="col-sm-11 option">
-            <div class="pure-radiobutton">
-                <input id="radio1" name="radio" type="radio" class="radio" >
-                <label for="radio1">A. Create an AD policy to modify the Windows Firewall settings on all hosts in the VPC to deny access from the IP Address block.</label>
-            </div>
-            
-        </div>
-        <div class="col-sm-1"></div>
-        <div class="col-sm-11 option">
-            <div class="pure-radiobutton ">
-                <input id="radio2" name="radio" type="radio" class="radio" >
-                <label for="radio2">A. Create an AD policy to modify the Windows Firewall settings on all hosts in the VPC to deny access from the IP Address block.</label>
-            </div>
-            
-        </div>
-        <div class="col-sm-1"></div>
-        <div class="col-sm-11 option">
-            <div class="pure-radiobutton ">
-                <input id="radio3" name="radio" type="radio" class="radio" >
-                <label for="radio3">A. Create an AD policy to modify the Windows Firewall settings on all hosts in the VPC to deny access from the IP Address block.</label>
-            </div>
-            
-        </div>
-        <div class="col-sm-1"></div>
-        <div class="col-sm-11 option">
-            <div class="pure-radiobutton ">
-                <input id="radio4" name="radio" type="radio" class="radio" >
-                <label for="radio4">A. Create an AD policy to modify the Windows Firewall settings on all hosts in the VPC to deny access from the IP Address block.</label>
-            </div>
-            
-        </div>
-    </div>
-            <div class="row bottom-margin">
-            <div class="col-sm-1"></div>
-            <div class="col-sm-2"><button class=" button startquiz-btn">Previous</button></div>
-            <div class="col-sm-2"></div>
-            <div class="col-sm-2"><button class=" button startquiz-btn">Submit Quiz</button></div>
-            <div class="col-sm-2"></div>
-            <div class="col-sm-2"><button class=" button startquiz-btn">Next</button></div>
-            <div class="col-sm-1"></div>
-        </div>    
-    
-    </div>
 
+    
+    <div class="allsteps ">
+        
+        <?php
+            $count = 0;
+            foreach ($quiz_all_ques as $question){
+                $choice = $question->multichoice;
+                if( $choice == 0 ){
+                    
+                    $type = "radio";
+                    $class = "pure-radiobutton";
+                }else{
+                    
+                    $type = "checkbox";
+                    $class = "pure-checkbox";
+                }
+                $count++;
+                ?>
+                
+            <div class='step'>
+                <div class="quiz-question row">
+                    <div class="col-sm-3 questionheading"><?php echo "Total Questions - ".count($quiz_all_ques); ?></div>
+                    <div class="col-sm-3 questionheading " id="questionnumber">Question <?php echo $count;?></div>
+                    <div class="col-sm-3 questionheading">
+                            <div class="pure-checkbox custlabel">
+                                <input id="checkbox1" name="checkbox" type="checkbox" >
+                                <label for="checkbox1">Mark for review</label>
+                            </div>
+
+                    </div>
+                    <div class="col-sm-3 questionheading">
+                        <div id="timerdiv" class="timerdiv" >Timer -( HH:MM:SS )</div>
+                    </div>
+
+                </div>
+                <div class='row questionbody'>
+                <div class='col-sm-1 questiontitle'><img class='img-rounded' src='<?php echo MYQUIZ_URL."assets/images/question_mark.png"; ?>' ></div>
+                <div class='col-sm-11 question'><?php echo $question->question; ?></div>
+                </div>
+                <div class="alloptions">
+                    <div class="row options">
+                        <?php
+                        $numberofoptions = $question->numberofoptions;
+                        $option = json_decode($question->options);
+                        for( $i=0; $i<$numberofoptions; $i++){
+                            ?>
+                        <div class="col-sm-1"></div>
+                        <div class="col-sm-11 option">
+                            <div class="<?php echo $class; ?>">
+                                <input id="radio<?php echo $question->question_id.",".$i;?>" name="radio" type="<?php echo $type?>" class="radio" >
+                                <label for="radio<?php echo $question->question_id.",".$i;?>"><?php echo $option[$i]; ?></label>
+                            </div>
+
+                        </div>
+                        <?php
+                                                }
+                        ?>
+                    </div>
+                </div>
+                
+                </div>
+                <?php
+            }
+        ?>
+
+        <div class="row bottom-margin" style="overflow:auto;">
+                    <div class="col-sm-1"></div>
+                    <div class="col-sm-2"><button class=" button startquiz-btn" type="button" id="prevBtn" onclick="nextPrev(-1)">Previous</button></div>
+                    <div class="col-sm-2"></div>
+                    <div class="col-sm-2"><button class=" button startquiz-btn" type="button">Submit Quiz</button></div>
+                    <div class="col-sm-2"></div>
+                    <div class="col-sm-2"><button class=" button startquiz-btn" type="button" id="nextBtn" onclick="nextPrev(1)">Next</button></div>
+                    <div class="col-sm-1"></div>
+        </div> 
+    </div>
+    
+    
+    </form>
 </div>
 <script>
 quiztimer();
+var currentTab = 0; // Current tab is set to be the first tab (0)
+showTab(currentTab); // Display the current tab
 </script>
 <?php }else{
 ?>
