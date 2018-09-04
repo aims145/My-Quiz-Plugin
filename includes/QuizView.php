@@ -21,7 +21,7 @@ if(isset($_POST["startquiz"])){
     <form action="" method="post" id="regForm">
     <div class="quizheading"><h1 class="text-center"><?php echo $quizname;?></h1></div>
 
-    
+    <input name="quiz_id" type="hidden" value="<?php echo $params['id']; ?>">
     <div class="allsteps ">
         
         <?php
@@ -58,7 +58,11 @@ if(isset($_POST["startquiz"])){
                 </div>
                 <div class='row questionbody'>
                 <div class='col-sm-1 questiontitle'><img class='img-rounded' src='<?php echo MYQUIZ_URL."assets/images/question_mark.png"; ?>' ></div>
-                <div class='col-sm-11 question'><?php echo $question->question; ?></div>
+                <div class='col-sm-11 question'>
+                    <?php echo $question->question; ?> 
+                    <input type="hidden" name="question_id[]" value="<?php echo $question->question_id; ?>" >
+                    <input type="hidden" name="ismultiple_<?php echo $question->question_id; ?>" value="<?php echo $choice;?>">
+                </div>
                 </div>
                 <div class="alloptions">
                     <div class="row options">
@@ -66,16 +70,18 @@ if(isset($_POST["startquiz"])){
                         $numberofoptions = $question->numberofoptions;
                         $option = json_decode($question->options);
                         for( $i=0; $i<$numberofoptions; $i++){
+                            if(!empty($option[$i])){
                             ?>
                         <div class="col-sm-1"></div>
                         <div class="col-sm-11 option">
                             <div class="<?php echo $class; ?>">
-                                <input id="radio<?php echo $question->question_id.",".$i;?>" name="radio" type="<?php echo $type?>" class="radio" >
+                                <input id="radio<?php echo $question->question_id.",".$i;?>" name="radio<?php echo $question->question_id; ?>[]" type="<?php echo $type?>" class="radio" value="<?php echo $i+1;?>" >
                                 <label for="radio<?php echo $question->question_id.",".$i;?>"><?php echo $option[$i]; ?></label>
                             </div>
 
                         </div>
                         <?php
+                            }
                                                 }
                         ?>
                     </div>
@@ -88,11 +94,11 @@ if(isset($_POST["startquiz"])){
 
         <div class="row bottom-margin" style="overflow:auto;">
                     <div class="col-sm-1"></div>
-                    <div class="col-sm-2"><button class=" button startquiz-btn" type="button" id="prevBtn" onclick="nextPrev(-1)">Previous</button></div>
+                    <div class="col-sm-2"><button class=" button quiz-btn" type="button" id="prevBtn" onclick="nextPrev(-1)">Previous</button></div>
                     <div class="col-sm-2"></div>
-                    <div class="col-sm-2"><button class=" button startquiz-btn" type="button">Submit Quiz</button></div>
+                    <div class="col-sm-2"><input class=" button quiz-btn" type="submit" name="submitquiz" id="submitquiz" value="Submit Quiz"></div>
                     <div class="col-sm-2"></div>
-                    <div class="col-sm-2"><button class=" button startquiz-btn" type="button" id="nextBtn" onclick="nextPrev(1)">Next</button></div>
+                    <div class="col-sm-2"><button class=" button quiz-btn" type="button" id="nextBtn" onclick="nextPrev(1)">Next</button></div>
                     <div class="col-sm-1"></div>
         </div> 
     </div>
@@ -102,10 +108,27 @@ if(isset($_POST["startquiz"])){
 </div>
 <script>
 quiztimer();
-var currentTab = 0; // Current tab is set to be the first tab (0)
+//
+//var currentQuestion = getCookie("currentquestion");
+//    console.log("questionNumber"+currentQuestion);
+//if(currentQuestion !== ''){
+//    var currentTab = (+currentQuestion-1);
+//}else{
+//    var currentTab = 0; // Current tab is set to be the first tab (0)    
+//}
+//console.log(currentTab);
+//console.log(document.cookie);
+var currentTab = 0; // Current tab is set to be the first tab (0)    
 showTab(currentTab); // Display the current tab
 </script>
-<?php }else{
+
+
+<?php }
+ elseif($_POST['submitquiz']) {
+    include_once MYQUIZ_DIR.'/includes/Results.php';
+ }
+
+else{
 ?>
 <div class="quizcontent">
     <div class="quizheading">
@@ -120,7 +143,7 @@ showTab(currentTab); // Display the current tab
         <div class="col-sm-4"></div>
         <input type="hidden" name="quizname" value="<?php echo $listshortcodes[0]->quiz_name;?>">
         <input type="hidden" name="quiz-category" id="quiz-category" value="awssaa">
-        <button class="button col-sm-4 startquiz-btn" id="startquiz" name="startquiz" type="submit">Start Quiz</button>
+        <button class="button col-sm-4 quiz-btn" id="startquiz" name="startquiz" type="submit">Start Quiz</button>
         <div class="col-sm-4"></div>
         
     </div>

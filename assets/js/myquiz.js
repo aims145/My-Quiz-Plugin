@@ -250,6 +250,10 @@ function quiztimer(){
                     minutes = 59;
                 }
             }
+            if( hours === 0 & minutes === 0 & seconds === 0){
+                alert("time out ");
+                return false;
+            }
             var timerdivcount = timer.length;
             var i;
             for( i=0; i<timerdivcount; i++){
@@ -270,7 +274,7 @@ function quiztimer(){
 function showTab(n) {
   // This function will display the specified tab of the form ...
   var x = document.getElementsByClassName("step");
-    console.log(n);
+    
   x[n].style.display = "block";
   // ... and fix the Previous/Next buttons:
   if (n == 0) {
@@ -298,6 +302,7 @@ function nextPrev(n) {
   // Increase or decrease the current tab by 1:
   currentTab = currentTab + n;
   // if you have reached the end of the form... :
+  document.cookie = "currentquestion="+(currentTab+1);
   if (currentTab >= x.length) {
     //...the form gets submitted:
     document.getElementById("regForm").submit();
@@ -338,3 +343,12 @@ function fixStepIndicator(n) {
   //... and adds the "active" class to the current step:
   x[n].className += " active";
 }
+
+
+//$(document).on("click", "#submitquiz", function(){
+    //document.cookie = "currentquestion=";
+    
+//});
+
+
+

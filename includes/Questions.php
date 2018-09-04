@@ -152,7 +152,7 @@ if(count($table_data) > 0 ){
                     <th><input class="form-control question-id" id="selectallquestion" type="checkbox"  ></th>
                     <th>Question ID</th>
                     <th>Question</th>
-                    <th>Associated Quiz Name</th>
+                    <th>Associated Quiz ID</th>
                     <th>Date</th>
                     <th style="width: 135px;">Action</th>
                 </tr>
@@ -164,7 +164,7 @@ if(count($table_data) > 0 ){
                 echo "<td><input class='form-control question-id' type='checkbox' name='allids[]' value='".$row->question_id."=".$row->quiz_id."' ></td>";
                 echo "<td>".$row->question_id."</td>";
                 echo "<td style='width: 375px;'>".substr($row->question, 0, 100)."</td>";
-                echo "<td>".$row->quiz_name."</td>";
+                echo "<td>".$row->quiz_id."</td>";
                 echo "<td>".$row->timestamp."</td>";
                 echo "<td>";
                 echo "<button class='button action' type='submit' style='margin-right:5px;' value='".$row->question_id."=".$row->quiz_id."' name='editonequestion' >Edit</a> "

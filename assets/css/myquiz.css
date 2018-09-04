@@ -33,7 +33,7 @@ and open the template in the editor.
 .btn-row{
     margin-bottom: 15px;
 }
-.startquiz-btn{
+.quiz-btn{
     background-color: #d2c359 !important;
     color: #fff !important;
     padding: 15px 32px !important;
@@ -45,7 +45,21 @@ and open the template in the editor.
     height: auto !important; 
 }
 
-.startquiz-btn:hover{
+.quiz-btn input{
+    background-color: #d2c359 !important;
+    color: #fff !important;
+    padding: 15px 32px !important;
+    text-align: center !important;
+    text-decoration: none !important;
+    display: inline-block !important;
+    font-size: 16px !important;
+     border: none !important;
+    height: auto !important; 
+}
+
+
+
+.quiz-btn:hover{
     color: #d2c359 !important;
     background-color:#6d6b6b !important;
 }
