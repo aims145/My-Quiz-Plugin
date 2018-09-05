@@ -179,7 +179,7 @@ if(count($table_data) > 0 ){
                     <th><input class="form-control question-id" id="selectallquestion" type="checkbox"  ></th>
                     <th>Question ID</th>
                     <th>Question</th>
-                    <th>Associated Quiz Name</th>
+                    <th>Associated Quiz ID</th>
                     <th>Date</th>
                     <th>Action</th>
                 </tr>

@@ -283,10 +283,12 @@ function showTab(n) {
     document.getElementById("prevBtn").style.display = "inline";
   }
   if (n == (x.length - 1)) {
-    document.getElementById("nextBtn").setAttribute("name","quizsubmit")  
-    document.getElementById("nextBtn").innerHTML = "Submit";
+    
+    document.getElementById("nextBtn").setAttribute("disabled","disabled");
+    document.getElementById("nextBtn").style.cursor  = "no-allowed";
+    
   } else {
-    document.getElementById("nextBtn").innerHTML = "Next";
+    document.getElementById("nextBtn").value = "Next";
   }
   // ... and run a function that displays the correct step indicator:
   fixStepIndicator(n)

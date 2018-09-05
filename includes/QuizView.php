@@ -46,8 +46,8 @@ if(isset($_POST["startquiz"])){
                     <div class="col-sm-3 questionheading " id="questionnumber">Question <?php echo $count;?></div>
                     <div class="col-sm-3 questionheading">
                             <div class="pure-checkbox custlabel">
-                                <input id="checkbox1" name="checkbox" type="checkbox" >
-                                <label for="checkbox1">Mark for review</label>
+                                <input id="checkbox<?php echo $question->question_id; ?>" name="isreviewed_<?php echo $question->question_id; ?>" type="checkbox" value="yes" >
+                                <label for="checkbox<?php echo $question->question_id; ?>">Mark for review</label>
                             </div>
 
                     </div>
@@ -94,11 +94,11 @@ if(isset($_POST["startquiz"])){
 
         <div class="row bottom-margin" style="overflow:auto;">
                     <div class="col-sm-1"></div>
-                    <div class="col-sm-2"><button class=" button quiz-btn" type="button" id="prevBtn" onclick="nextPrev(-1)">Previous</button></div>
+                    <div class="col-sm-2"><input class=" button quiz-btn" type="button" id="prevBtn" onclick="nextPrev(-1)" value="Previous"></div>
                     <div class="col-sm-2"></div>
-                    <div class="col-sm-2"><input class=" button quiz-btn" type="submit" name="submitquiz" id="submitquiz" value="Submit Quiz"></div>
+                    <div class="col-sm-2" id="reviewallbutton"><input class="button quiz-btn" type="submit" id="reviewall" name="reviewall"  value="Review All"></div>
                     <div class="col-sm-2"></div>
-                    <div class="col-sm-2"><button class=" button quiz-btn" type="button" id="nextBtn" onclick="nextPrev(1)">Next</button></div>
+                    <div class="col-sm-2" id="reviewallsubmitbutton"><input class="button quiz-btn" type="button" id="nextBtn" onclick="nextPrev(1)" value="Next"></div>
                     <div class="col-sm-1"></div>
         </div> 
     </div>
@@ -124,8 +124,8 @@ showTab(currentTab); // Display the current tab
 
 
 <?php }
- elseif($_POST['submitquiz']) {
-    include_once MYQUIZ_DIR.'/includes/Results.php';
+ elseif($_POST['reviewall']) {
+    include_once MYQUIZ_DIR.'/includes/Review.php';
  }
 
 else{

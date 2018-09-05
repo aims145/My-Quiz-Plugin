@@ -57,7 +57,13 @@ and open the template in the editor.
     height: auto !important; 
 }
 
+.quiz-btn input[type="button"]:disabled {
+    background: #dddddd;
+}
 
+.quiz-btn:hover input[type="button"]:disabled {
+    background: #dddddd;
+}
 
 .quiz-btn:hover{
     color: #d2c359 !important;
@@ -116,7 +122,9 @@ and open the template in the editor.
     display: none;
 }
 
-
+input[type="button"]:disabled {
+    background: #dddddd;
+}
 
 
 /* Forms */
