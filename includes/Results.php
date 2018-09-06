@@ -11,7 +11,7 @@ $question_ids = $_POST["question_id"];
 $table_ques = $wpdb->prefix.MYQUESTIONS;
 $totalmarks = '';
 echo "<pre>";
-if(is_array($question_ids)){
+if(isset($question_ids)){
     $count = count($question_ids);
     for($i=0;$i<$count;$i++){
         //echo $question_ids[$i]." = > ".implode(",", $_POST["radio".$question_ids[$i]])."<br />";

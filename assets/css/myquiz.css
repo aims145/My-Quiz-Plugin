@@ -57,17 +57,24 @@ and open the template in the editor.
     height: auto !important; 
 }
 
-.quiz-btn input[type="button"]:disabled {
-    background: #dddddd;
+.disabled-quiz-btn{
+    background-color: #afafaf !important;
+    cursor: not-allowed !important;
 }
 
-.quiz-btn:hover input[type="button"]:disabled {
-    background: #dddddd;
-}
+
 
 .quiz-btn:hover{
     color: #d2c359 !important;
     background-color:#6d6b6b !important;
+}
+.review-question-btn{
+    color: #fff !important;
+    background-color:#6d6b6b !important;
+}
+.disabled-quiz-btn:hover{
+    background-color: #afafaf !important;
+    color: #fff !important;
 }
 
 .row.quiz-question{
@@ -127,6 +134,9 @@ input[type="button"]:disabled {
 }
 
 
+.accordion-header-review {
+    background-color: #d2c359 !important;
+}
 /* Forms */
 
 

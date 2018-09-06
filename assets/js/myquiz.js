@@ -274,21 +274,34 @@ function quiztimer(){
 function showTab(n) {
   // This function will display the specified tab of the form ...
   var x = document.getElementsByClassName("step");
-    
+  
+  console.log(n);  
   x[n].style.display = "block";
   // ... and fix the Previous/Next buttons:
   if (n == 0) {
-    document.getElementById("prevBtn").style.display = "none";
+    document.getElementById("prevBtn").setAttribute("disabled","disabled");
+    document.getElementById("prevBtn").style.cursor  = "no-allowed";
+    document.getElementById("prevBtn").removeAttribute("onclick");
+    document.getElementById("prevBtn").setAttribute("class", "button quiz-btn disabled-quiz-btn");  
   } else {
-    document.getElementById("prevBtn").style.display = "inline";
+    document.getElementById("prevBtn").removeAttribute("disabled");
+    document.getElementById("prevBtn").setAttribute("onclick","nextPrev(-1)");
+    document.getElementById("prevBtn").style.cursor  = "pointer";
+    document.getElementById("prevBtn").setAttribute("class", "button quiz-btn");  
+    
   }
   if (n == (x.length - 1)) {
-    
     document.getElementById("nextBtn").setAttribute("disabled","disabled");
+    document.getElementById("nextBtn").removeAttribute("onclick");
     document.getElementById("nextBtn").style.cursor  = "no-allowed";
+    document.getElementById("nextBtn").setAttribute("class", "button quiz-btn disabled-quiz-btn");
+        
     
   } else {
     document.getElementById("nextBtn").value = "Next";
+    document.getElementById("nextBtn").setAttribute("onclick","nextPrev(1)");
+    document.getElementById("nextBtn").setAttribute("class", "button quiz-btn");
+    document.getElementById("nextBtn").style.cursor  = "pointer";
   }
   // ... and run a function that displays the correct step indicator:
   fixStepIndicator(n)
