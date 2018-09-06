@@ -21,10 +21,10 @@ and open the template in the editor.
 }
 
 .quizheading{
-    color: #d2c359;
+    color: #6d6b6b;
     padding: 10px;
-    background-color: #6d6b6b;
-    border-bottom: 5px #d2c359 solid;
+    border-bottom: 5px #007bff solid;
+    border-top: 5px #007bff solid;
 }
 .quizdescription{
     padding: 30px;
@@ -34,7 +34,7 @@ and open the template in the editor.
     margin-bottom: 15px;
 }
 .quiz-btn{
-    background-color: #d2c359 !important;
+    background-color: #007bff !important;
     color: #fff !important;
     padding: 15px 32px !important;
     text-align: center !important;
@@ -46,7 +46,7 @@ and open the template in the editor.
 }
 
 .quiz-btn input{
-    background-color: #d2c359 !important;
+    background-color: #007bff !important;
     color: #fff !important;
     padding: 15px 32px !important;
     text-align: center !important;
@@ -65,12 +65,19 @@ and open the template in the editor.
 
 
 .quiz-btn:hover{
-    color: #d2c359 !important;
+    color: #007bff !important;
     background-color:#6d6b6b !important;
 }
 .review-question-btn{
-    color: #fff !important;
-    background-color:#6d6b6b !important;
+    background-color: #fff !important;
+    color: #007bff !important;
+    padding: 15px 32px !important;
+    text-align: center !important;
+    text-decoration: none !important;
+    display: inline-block !important;
+    font-size: 16px !important;
+     border: none !important;
+    height: auto !important; 
 }
 .disabled-quiz-btn:hover{
     background-color: #afafaf !important;
@@ -87,30 +94,34 @@ and open the template in the editor.
 }
 
 .questionheading{
-    background-color: gray;
-    color: #d2c359 ;
+    
+    color: #6d6b6b ;
     padding: 15px;
-    border-left: 1px #d2c359 solid;
-    border-right: 1px #d2c359 solid;
+/*    border-left: 1px #007bff solid;
+    border-right: 1px #007bff solid;*/
     text-align: center;
     font-size: 20px;
 }
 .questionheading label{
-    color: #d2c359;
+    color: #6d6b6b;
 }
 .questionbody{
     padding: 10px 45px !important;
     text-align: justify;
-    background-color: #6d6b6b;
-    color: #fff;
+    color: #6c757d;
+}
+
+.col-sm-11.question {
+    color: #6c757d;
+    font-weight: bold;
 }
 
 .row.options{
     padding: 20px 45px !important;
-    color: #d2c359;
+    color: #007bff;
 }
 .col-sm-2.questiontitle{
-/*    background-color: #d2c359 !important;
+/*    background-color: #007bff !important;
     padding: 10px !important;
     text-align: center ;*/
 }
@@ -135,7 +146,7 @@ input[type="button"]:disabled {
 
 
 .accordion-header-review {
-    background-color: #d2c359 !important;
+    background-color: #007bff !important;
 }
 /* Forms */
 
@@ -156,7 +167,7 @@ input[type="button"]:disabled {
 }
 
 .pure-checkbox input[type="checkbox"]:focus + label:before, .pure-radiobutton input[type="checkbox"]:focus + label:before, .pure-checkbox input[type="radio"]:focus + label:before, .pure-radiobutton input[type="radio"]:focus + label:before, .pure-checkbox input[type="checkbox"]:hover + label:before, .pure-radiobutton input[type="checkbox"]:hover + label:before, .pure-checkbox input[type="radio"]:hover + label:before, .pure-radiobutton input[type="radio"]:hover + label:before {
-  border-color: #d2c359;
+  border-color: #007bff;
   background-color: #f2f2f2;
 }
 
@@ -173,14 +184,14 @@ input[type="button"]:disabled {
 .pure-checkbox input[type="checkbox"] + label:before, .pure-radiobutton input[type="checkbox"] + label:before, .pure-checkbox input[type="radio"] + label:before, .pure-radiobutton input[type="radio"] + label:before {
   box-sizing: content-box;
   content: '';
-  color: #d2c359;
+  color: #007bff;
   position: absolute;
   top: 50%;
   left: 0;
   width: 14px;
   height: 14px;
   margin-top: -9px;
-  border: 2px solid #d2c359;
+  border: 2px solid #007bff;
   text-align: center;
   transition: all 0.4s ease;
 }
@@ -188,7 +199,7 @@ input[type="button"]:disabled {
 .pure-checkbox input[type="checkbox"] + label:after, .pure-radiobutton input[type="checkbox"] + label:after, .pure-checkbox input[type="radio"] + label:after, .pure-radiobutton input[type="radio"] + label:after {
   box-sizing: content-box;
   content: '';
-  background-color: #d2c359;
+  background-color: #007bff;
   position: absolute;
   top: 50%;
   left: 4px;
@@ -237,13 +248,13 @@ input[type="button"]:disabled {
 
 .pure-checkbox input[type="checkbox"]:checked + label:before, .pure-radiobutton input[type="checkbox"]:checked + label:before {
   animation: borderscale 200ms ease-in;
-  background: #d2c359;
+  background: #007bff;
 }
 
 .pure-checkbox input[type="checkbox"]:checked + label:after, .pure-radiobutton input[type="checkbox"]:checked + label:after { transform: rotate(-45deg) scale(1); }
 
 @keyframes 
 borderscale {  50% {
- box-shadow: 0 0 0 2px #d2c359;
+ box-shadow: 0 0 0 2px #007bff;
 }
 }

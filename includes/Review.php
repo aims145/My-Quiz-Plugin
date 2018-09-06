@@ -19,6 +19,16 @@ if(isset($question_ids)){
         //echo $question_ids[$i]." = > ".implode(",", $_POST["radio".$question_ids[$i]])."<br />";
         $sql = "select * from $table_ques where question_id='$question_ids[$i]'";
         $quesdata = $wpdb->get_results($sql);
+        $choice = $quesdata[0]->multichoice;
+                if( $choice == 0 ){
+                    
+                    $type = "radio";
+                    $class = "pure-radiobutton";
+                }else{
+                    
+                    $type = "checkbox";
+                    $class = "pure-checkbox";
+                }
                 ?>
     
     <div class="card">
@@ -38,7 +48,10 @@ if(isset($question_ids)){
               <div class="row">
                   <div class="col-sm-1"></div>
                   <div class="col-sm-11">
-                      <h6><?php echo $quesdata[0]->question ?></h6>
+                      <div class="col-sm-12">
+                          <h6><?php echo $quesdata[0]->question ?></h6>
+                      </div>
+                      
                   </div>
               </div>
               

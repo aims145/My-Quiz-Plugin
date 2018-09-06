@@ -62,6 +62,7 @@ if(isset($_POST["startquiz"])){
                     <?php echo $question->question; ?> 
                     <input type="hidden" name="question_id[]" value="<?php echo $question->question_id; ?>" >
                     <input type="hidden" name="ismultiple_<?php echo $question->question_id; ?>" value="<?php echo $choice;?>">
+                    <input type="hidden" name="optioncount_<?php echo $question->question_id; ?>" value="<?php echo $question->numberofoptions; ?>">
                 </div>
                 </div>
                 <div class="alloptions">
