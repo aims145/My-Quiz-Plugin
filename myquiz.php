@@ -96,30 +96,32 @@ function create_table_on_activation(){
     $charset_collate = $wpdb->get_charset_collate();
     $table_name = $wpdb->prefix .MYTABLE;
 
-    $sql = "CREATE TABLE IF NOT EXISTS $table_name (
-         `quiz_id` int(10) NOT NULL AUTO_INCREMENT,
-         `quiz_name` text COLLATE utf8mb4_unicode_520_ci NOT NULL,
-         `quiz_description` text COLLATE utf8mb4_unicode_520_ci NOT NULL,
-         `quiz_addedquestions` int(10) NOT NULL,
-         PRIMARY KEY (`quiz_id`)
-    ) $charset_collate;";
+    $sql = "CREATE TABLE IF NOT EXISTS `wp_my_quiz` (
+            `quiz_id` int(10) NOT NULL AUTO_INCREMENT,
+            `quiz_name` varchar(100) COLLATE utf8mb4_unicode_520_ci NOT NULL,
+            `quiz_shortcode` varchar(50) COLLATE utf8mb4_unicode_520_ci NOT NULL,
+            `quiz_description` text COLLATE utf8mb4_unicode_520_ci NOT NULL,
+            `quiz_addedquestions` int(10) NOT NULL,
+            `Date` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
+            PRIMARY KEY (`quiz_id`)
+           ) $charset_collate;";
 
     require_once( ABSPATH . 'wp-admin/includes/upgrade.php' );
     dbDelta( $sql );
     $table_name = $wpdb->prefix .MYQUESTIONS;
-    $sql = "CREATE TABLE IF NOT EXISTS `wp_my_quiz_questions` (
-         `question_id` int(10) NOT NULL AUTO_INCREMENT,
-         `question` text COLLATE utf8mb4_unicode_520_ci NOT NULL,
-         `options` text COLLATE utf8mb4_unicode_520_ci NOT NULL,
-         `multichoice` tinyint(1) NOT NULL,
-         `numberofoptions` int(10) NOT NULL,
-         `correctanswer` varchar(100) COLLATE utf8mb4_unicode_520_ci NOT NULL,
-         `answerallowed` int(10) NOT NULL,
-         `answerdescription` text COLLATE utf8mb4_unicode_520_ci NOT NULL,
-         `quiz_id` int(10) NOT NULL,
-         `timestamp` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
-         PRIMARY KEY (`question_id`)
-         ) $charset_collate;";
+    $sql = "CREATE TABLE `wp_my_quiz_questions` (
+            `question_id` int(10) NOT NULL AUTO_INCREMENT,
+            `question` text COLLATE utf8mb4_unicode_520_ci NOT NULL,
+            `options` text COLLATE utf8mb4_unicode_520_ci NOT NULL,
+            `multichoice` tinyint(1) NOT NULL,
+            `numberofoptions` int(10) NOT NULL,
+            `correctanswer` varchar(100) COLLATE utf8mb4_unicode_520_ci NOT NULL,
+            `answerallowed` int(10) NOT NULL,
+            `answerdescription` text COLLATE utf8mb4_unicode_520_ci NOT NULL,
+            `quiz_id` int(10) NOT NULL,
+            `timestamp` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
+            PRIMARY KEY (`question_id`)
+           ) $charset_collate;";
     require_once( ABSPATH . 'wp-admin/includes/upgrade.php' );
     dbDelta( $sql );
 }
@@ -134,8 +136,6 @@ function drop_table_on_delete(){
     require_once( ABSPATH . 'wp-admin/includes/upgrade.php' );
     dbDelta( $sql );
 }
-
-
 register_uninstall_hook(__FILE__,'drop_table_on_delete');
 
 
@@ -159,10 +159,15 @@ function myquiz_addquestion(){
 
 
 // ------------------------------- Creating Quiz Layout -----------------------------//
+//
+function getshortcodes(){
+    global $wpdb;
+    $quiztable = $wpdb->prefix.MYTABLE;
+    $sql = "select quiz_shortcode from $quiztable";
+    $listshortcodes = $wpdb->get_results($sql);    
+    return $listshortcodes;
+}
 
-$quiztable = $wpdb->prefix.MYTABLE;
-$sql = "select quiz_shortcode from $quiztable";
-$listshortcodes = $wpdb->get_results($sql);
 
 function quiz_view($atts){
     global $wpdb;
@@ -173,9 +178,14 @@ function quiz_view($atts){
     include_once MYQUIZ_DIR.'/includes/QuizView.php';
     
 }
-foreach($listshortcodes as $shortcodes){
+
+$listshortcodes = getshortcodes();
+if(count($listshortcodes) > 0 ){
+    foreach($listshortcodes as $shortcodes){
     add_shortcode($shortcodes->quiz_shortcode, "quiz_view");    
 }
+}
+
 
 
 

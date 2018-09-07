@@ -40,31 +40,32 @@ if(isset($_POST["startquiz"])){
                 $count++;
                 ?>
                 
-            <div class='step'>
-                <div class="quiz-question row">
-                    <div class="col-sm-3 questionheading"><?php echo "Total Questions - ".count($quiz_all_ques); ?></div>
-                    <div class="col-sm-3 questionheading " id="questionnumber">Question <?php echo $count;?></div>
-                    <div class="col-sm-3 questionheading">
-                            <div class="pure-checkbox custlabel">
-                                <input id="checkbox<?php echo $question->question_id; ?>" name="isreviewed_<?php echo $question->question_id; ?>" type="checkbox" value="yes" >
-                                <label for="checkbox<?php echo $question->question_id; ?>">Mark for review</label>
-                            </div>
+<div class='step'>
+    <div class="card">
+        <div class="card-header">
+            <div class="row">
+            <div class="col-sm-3 questionheading"><?php echo "Total Questions - ".count($quiz_all_ques); ?></div>
+            <div class="col-sm-3 questionheading" id="questionnumber">Question <?php echo $count;?></div>
 
-                    </div>
-                    <div class="col-sm-3 questionheading">
-                        <div id="timerdiv" class="timerdiv" >Timer -( HH:MM:SS )</div>
-                    </div>
-
+            <div class="col-sm-3 pure-checkbox questionheading custlabel">
+                    <input id="checkbox<?php echo $question->question_id; ?>" name="isreviewed_<?php echo $question->question_id; ?>" type="checkbox" value="yes" >
+                    <label for="checkbox<?php echo $question->question_id; ?>">Mark for review</label>
                 </div>
-                <div class='row questionbody'>
+            <div id="timerdiv" class="cal-sm-3 questionheading timerdiv" >Timer -( HH:MM:SS )</div>
+            </div>
+        </div>
+
+        <div class="card-body">
+            <div class='row questionbody'>
                 <div class='col-sm-1 questiontitle'><img class='img-rounded' src='<?php echo MYQUIZ_URL."assets/images/question_mark.png"; ?>' ></div>
-                <div class='col-sm-11 question'>
+                <div class='col-sm-11 card-title question'>
                     <?php echo $question->question; ?> 
                     <input type="hidden" name="question_id[]" value="<?php echo $question->question_id; ?>" >
                     <input type="hidden" name="ismultiple_<?php echo $question->question_id; ?>" value="<?php echo $choice;?>">
                     <input type="hidden" name="optioncount_<?php echo $question->question_id; ?>" value="<?php echo $question->numberofoptions; ?>">
                 </div>
                 </div>
+            <div class="card-text">
                 <div class="alloptions">
                     <div class="row options">
                         <?php
@@ -87,19 +88,24 @@ if(isset($_POST["startquiz"])){
                         ?>
                     </div>
                 </div>
+            </div>
+        </div>    
+
+    </div>
+
                 
-                </div>
+</div>
                 <?php
             }
         ?>
 
         <div class="row bottom-margin" style="overflow:auto;">
                     <div class="col-sm-1"></div>
-                    <div class="col-sm-2"><input class=" button quiz-btn" type="button" id="prevBtn" onclick="nextPrev(-1)" value="Previous"></div>
+                    <div class="col-sm-2"><input class=" btn btn-primary" type="button" id="prevBtn" onclick="nextPrev(-1)" value="Previous"></div>
                     <div class="col-sm-2"></div>
-                    <div class="col-sm-2" id="reviewallbutton"><input class="button quiz-btn" type="submit" id="reviewall" name="reviewall"  value="Review All"></div>
+                    <div class="col-sm-2" id="reviewallbutton"><input class="btn btn-primary" type="submit" id="reviewall" name="reviewall"  value="Review All"></div>
                     <div class="col-sm-2"></div>
-                    <div class="col-sm-2" id="reviewallsubmitbutton"><input class="button quiz-btn" type="button" id="nextBtn" onclick="nextPrev(1)" value="Next"></div>
+                    <div class="col-sm-2" id="reviewallsubmitbutton"><input class="btn btn-primary" type="button" id="nextBtn" onclick="nextPrev(1)" value="Next"></div>
                     <div class="col-sm-1"></div>
         </div> 
     </div>
@@ -144,7 +150,7 @@ else{
         <div class="col-sm-4"></div>
         <input type="hidden" name="quizname" value="<?php echo $listshortcodes[0]->quiz_name;?>">
         <input type="hidden" name="quiz-category" id="quiz-category" value="awssaa">
-        <button class="button col-sm-4 quiz-btn" id="startquiz" name="startquiz" type="submit">Start Quiz</button>
+        <button class="btn col-sm-4 btn-primary" id="startquiz" name="startquiz" type="submit">Start Quiz</button>
         <div class="col-sm-4"></div>
         
     </div>
